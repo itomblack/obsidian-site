@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/obsidian-site/precache-manifest.98f7981a2bb57d76a099f7f0c38cbaac.js"
+  "/obsidian-site/precache-manifest.24efd194a22341e028c5bac4f9592fb6.js"
 );
 
 self.addEventListener('message', (event) => {

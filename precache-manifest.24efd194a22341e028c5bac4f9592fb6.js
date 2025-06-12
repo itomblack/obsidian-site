@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "534e2e4f1bd20fc3490702db625a4f21",
+    "revision": "3792f8a0f8e6a01ec1afe98d53d29c05",
     "url": "/obsidian-site/index.html"
   },
   {
-    "revision": "25d4c8112df4e84df2b5",
-    "url": "/obsidian-site/static/css/main.435d5fe5.chunk.css"
+    "revision": "683f43e9d72cf3053559",
+    "url": "/obsidian-site/static/css/main.37199c86.chunk.css"
   },
   {
     "revision": "e035fc516985727789a4",
@@ -20,15 +20,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/obsidian-site/static/js/3.6b7ab727.chunk.js"
   },
   {
-    "revision": "25d4c8112df4e84df2b5",
-    "url": "/obsidian-site/static/js/main.41955045.chunk.js"
+    "revision": "683f43e9d72cf3053559",
+    "url": "/obsidian-site/static/js/main.7eb49e00.chunk.js"
   },
   {
     "revision": "d10b5f279c1b6c957cc6",
     "url": "/obsidian-site/static/js/runtime-main.afcadbe5.js"
   },
   {
-    "revision": "06e733283fa43d1dd57738cfc409adbd",
-    "url": "/obsidian-site/static/media/logo.06e73328.svg"
+    "revision": "36af21d1a7c41ee181a15b3949ceb298",
+    "url": "/obsidian-site/static/media/logo.36af21d1.svg"
   }
 ]);
