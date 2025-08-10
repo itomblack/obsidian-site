@@ -1,3 +1,19 @@
+
+/* Global styles */
+.section-inset {
+   width: 100%;
+   max-width: 900px;
+   margin: auto;
+   background: red;
+}
+
+.section-fullbleed {
+  width: 100%;
+  margin: auto;
+}
+
+
+/* NOT SURE IF I NEED THESE ONES */
 .App {
   text-align: center;
 }

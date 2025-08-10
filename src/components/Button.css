@@ -1,0 +1,26 @@
+.button {
+  background: white;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 32px;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 100px;
+  background: 
+    linear-gradient(white, white) padding-box, /* inner fill */
+    linear-gradient(90deg, #ff00ff, #ff9900) border-box; /* gradient border */
+  border: 2px solid transparent; /* needed for background-clip trick */
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border-top: 0px;
+  border-left: 0px;
+
+}
+
+.button:hover {
+  transition: all 1s ease;
+  background: 
+    linear-gradient(white, white) padding-box, /* inner fill */
+    linear-gradient(90deg, #ff9900, #ff00ff) border-box; /* gradient border */
+  
+}

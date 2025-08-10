@@ -1,0 +1,26 @@
+.nav-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0px;
+  font-family: sans-serif;
+  border-bottom: 1px solid;
+  border-image: linear-gradient(270deg, #FFA303 0%, #E223FF 100%) 1; 
+}
+
+.logo {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 32px;
+  color: white;
+}
+
+.nav-right-side {
+  
+}
+
+@media (max-width: 720px) {
+  .nav {
+    padding: 16px 20px;
+  }
+}

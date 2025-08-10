@@ -1,0 +1,10 @@
+.fullbleed-container {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 48px;
+}
+
+.fullbleed-image {
+  width: 100%;
+  display: block;
+}
