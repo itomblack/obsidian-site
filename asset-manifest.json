@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.450da932.css",
-    "main.js": "/static/js/main.e834ae5a.js",
+    "main.css": "/static/css/main.22fb9f6a.css",
+    "main.js": "/static/js/main.7aedd769.js",
     "static/js/453.7fbbb176.chunk.js": "/static/js/453.7fbbb176.chunk.js",
     "static/media/01.jpg": "/static/media/01.cb11a4d21559db3cd147.jpg",
     "static/media/07.jpg": "/static/media/07.4470deb2823a4a5c1605.jpg",
@@ -18,12 +18,12 @@
     "static/media/GT-Walsheim-Light.woff2": "/static/media/GT-Walsheim-Light.2f45557205151880869d.woff2",
     "static/media/logo.svg": "/static/media/logo.8a05c2d4cbe7a04ea405b5b7e5058d1e.svg",
     "index.html": "/index.html",
-    "main.450da932.css.map": "/static/css/main.450da932.css.map",
-    "main.e834ae5a.js.map": "/static/js/main.e834ae5a.js.map",
+    "main.22fb9f6a.css.map": "/static/css/main.22fb9f6a.css.map",
+    "main.7aedd769.js.map": "/static/js/main.7aedd769.js.map",
     "453.7fbbb176.chunk.js.map": "/static/js/453.7fbbb176.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.450da932.css",
-    "static/js/main.e834ae5a.js"
+    "static/css/main.22fb9f6a.css",
+    "static/js/main.7aedd769.js"
   ]
 }
