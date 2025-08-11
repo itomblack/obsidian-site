@@ -1,0 +1,21 @@
+.announcement-banner {
+  background: linear-gradient(90deg, #ff4ecd, #ff9800); /* pink to orange gradient */
+  color: black;
+  text-align: center;
+  padding: 10px 20px;
+  font-weight: 400;
+  border-radius: 8px;
+  margin: 24px 0 16px 0;
+}
+
+.announcement-banner p {
+  margin: 0;
+  font-family: inherit;
+  width: 100%;
+}
+
+@media (max-width: 720px) {
+  .announcement-banner p {
+    font-size: 12px;
+  }
+}

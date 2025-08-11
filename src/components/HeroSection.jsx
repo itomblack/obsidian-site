@@ -6,8 +6,8 @@ export default function HeroSection() {
     <div className="section-inset">
       <div className="hero-section">
         <h1>Growth,<br />by design<span className="dot">.</span></h1>
-        <p>
-          For retail operators sick of stores that don’t perform – we bring the UX strategy, design expertise, and conversion rate optimization chops that grow your business without compromising your brand.
+        <p class="hero-subtitle">
+          For retail operators sick of stores that don’t perform – we bring the design expertise & conversion rate optimization chops that grow your business without compromising your brand.
         </p>
       </div>
     </div>

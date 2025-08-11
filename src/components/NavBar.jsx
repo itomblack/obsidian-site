@@ -8,7 +8,7 @@ export default function NavBar() {
     <div className="section-inset">
       <div className="nav-bar">
         <img src={logo} alt="Obsidian logo" className="logo" />
-        <Button label="Say Hi" />
+        <Button label="Say Hi" href="https://www.linkedin.com/in/itomblack/" target="_blank" />
       </div>
     </div>
   );

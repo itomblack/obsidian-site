@@ -9,11 +9,6 @@
   border-image: linear-gradient(270deg, #FFA303 0%, #E223FF 100%) 1; 
 }
 
-.logo {
-  font-family: 'Brush Script MT', cursive;
-  font-size: 32px;
-  color: white;
-}
 
 .nav-right-side {
   
@@ -22,5 +17,8 @@
 @media (max-width: 720px) {
   .nav {
     padding: 16px 20px;
+  }
+  .logo {
+    width: 111px;
   }
 }

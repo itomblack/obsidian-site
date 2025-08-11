@@ -1,8 +1,4 @@
-/* .hero {
-  padding: 0 48px;
-  color: white;
-  font-family: sans-serif;
-} */
+
 
 .hero-section {
   display: flex;
@@ -12,10 +8,7 @@
   margin: 96px 0 156px 0;
 }
 
-/* .hero-text {
-  max-width: 900px;
-  margin-top: 40px;
-} */
+
 
 .hero-section h1 {
   flex: 1;
@@ -28,8 +21,8 @@
   color: var(--color-darkpink);
 }
 
-.hero-section p {
-  font-size: 20px !important; 
+.hero-subtitle {
+  font-size: 20px; 
   font-weight: 300;
   margin-top: 24px;
   max-width: 700px;
@@ -39,16 +32,32 @@
 }
 
 /* SCREEN SIZES */
-@media (max-width: 720px) {
-  .hero {
-    padding: 0 20px;
+@media (max-width: 1200px) {
+
+  .hero-section h1 {
+    font-size: 60px;
   }
 
-  .hero h1 {
-    font-size: 48px;
-  }
-
-  .hero p {
+  .hero-subtitle {
     font-size: 16px;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-section {
+    flex-direction: column; /* stack vertically */
+    align-items: flex-start; /* align text to the left */
+    gap: 0px; /* adjust spacing between h1 and p */
+    margin: 48px 0 72px 0;
+  }
+  .hero-section h1 {
+    font-size: 50px;
+    max-width: 100%;
+    margin-bottom: 0;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+    max-width: 100%;
   }
 }

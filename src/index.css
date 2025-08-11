@@ -1,6 +1,6 @@
 :root {
-  --site-margin-desktop: 48px;
-  --site-margin-mobile: 20px;
+  --site-marg-desk: 48px;
+  --site-marg-mob: 16px;
   --color-black: #010105;
   --color-purple: #2F1B65;
   --color-blue: #5123FF;
@@ -138,10 +138,18 @@ html {
 .section-inset {
    width: 100%;
    max-width: 1440px;
-   padding-left: 48px;
-   padding-right: 48px;
+   padding-left: var(--site-marg-desk);
+   padding-right: var(--site-marg-desk);
    margin: auto;
 }
+
+@media (max-width: 800px) {
+  .section-inset {
+    padding-left: var(--site-marg-mob);
+    padding-right: var(--site-marg-mob);
+  }
+ }
+
 
 .section-fullbleed {
   width: 100%;
