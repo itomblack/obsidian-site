@@ -155,3 +155,8 @@ html {
   width: 100%;
   margin: auto;
 }
+
+.HomeSpacer {
+  width: 100%;
+  height: 600px;
+}

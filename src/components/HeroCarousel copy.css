@@ -1,0 +1,149 @@
+:root {
+  --item-width: 18vw;           /* ~6 visible on desktop */
+  --item-aspect-w: 230;
+  --item-aspect-h: 510;
+  --gap: 48px;                  /* desktop gap */
+  --carousel-speed: 3s;         /* fallback; JS will override per-prop */
+}
+
+/* reset basic we styles */
+.scroller ul {
+  padding-inline-start: var(--gap); /* even spacing at edges */
+}
+
+.carousel {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Two-group marquee. CSS animation drives translate; JS sets --half to exact px. */
+.carousel__track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--gap);
+  padding-inline: var(--gap); /* even spacing at edges */
+  will-change: transform;
+  transform: translate3d(0,0,0);
+  animation: marquee var(--carousel-speed) linear infinite;
+}
+
+/* Each group keeps its natural width and holds spacing between items */
+.carousel__group {
+  display: flex;
+  gap: var(--gap);
+  flex: 0 0 auto; /* don't shrink */
+}
+
+/* Extra spacing between the duplicated groups (the seam) */
+.carousel__group + .carousel__group {
+  margin-left: var(--gap);
+}
+
+.carousel__item {
+  flex: 0 0 var(--item-width);
+  aspect-ratio: var(--item-aspect-w) / var(--item-aspect-h);
+  border-radius: 20px;
+  overflow: hidden;
+  background: #0b0b10;
+  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+}
+
+.carousel__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@keyframes marquee {
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(calc(-1 * var(--half, 50%)),0,0); }
+}
+
+@media (max-width: 720px) {
+  :root { --item-width: 44vw; }
+}
+:root {
+  --gap: 48px;         /* desktop spacing */
+  --item: 240px;       /* fixed px width = zero rounding drift */
+  --ar-w: 230;
+  --ar-h: 510;
+  --speed: 30s;        /* one full pass for a single group */
+}
+
+.scroller {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  padding-inline: var(--gap); /* even edge padding on the stationary wrapper */
+  /* optional: soft edge fade */
+  /* -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 40px,
+    black calc(100% - 40px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 40px,
+    black calc(100% - 40px),
+    transparent 100%
+  ); */
+}
+
+/* Belt = two identical groups side-by-side */
+.scroller__belt {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: scroll var(--speed) linear infinite;
+}
+
+
+.scroller__group {
+  display: flex;
+  gap: var(--gap);
+  flex: 0 0 auto; /* keep natural width */
+}
+
+/* IMPORTANT: no extra margin/padding between groups; halves must be identical */
+
+.scroller__item {
+  list-style: none;
+  flex: 0 0 var(--item);
+  aspect-ratio: var(--ar-w) / var(--ar-h);
+  border-radius: 20px;
+  overflow: hidden;
+  background: #0b0b10;
+  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+}
+
+.scroller__item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+@keyframes scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroller__belt { animation: none; transform: none; }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --item: 180px;
+    --gap: 16px;
+  }
+}

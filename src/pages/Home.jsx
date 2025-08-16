@@ -12,6 +12,7 @@ export default function Home() {
       <AnnouncementBanner />
       <HeroSection />
       <HeroCarousel/>
+      <div className="HomeSpacer"></div>
       {/* <FullBleedImage /> */}
     </>
   );

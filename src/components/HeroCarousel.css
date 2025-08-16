@@ -1,145 +1,83 @@
-:root {
-  --item-width: 18vw;           /* ~6 visible on desktop */
-  --item-aspect-w: 230;
-  --item-aspect-h: 510;
-  --gap: 48px;                  /* desktop gap */
-  --carousel-speed: 3s;         /* fallback; JS will override per-prop */
+/* Prevents horizontal scrollbar even when we paint past the container (iOS-safe) */
+html,
+body {
+  overflow-x: hidden;
 }
 
-.carousel {
+/* Let the section compute how much space exists between the centered container and the viewport edge */
+.section-inset {
+  /* --edge-bleed equals half the leftover space around the max-width container */
+  --edge-bleed: max(0px, (100vw - 100%) / 2);
+}
+
+/* Static, left-aligned belt inside your .section-inset container */
+.scrollCarousel {
   width: 100%;
-  overflow: hidden;
   position: relative;
-  user-select: none;
-  -webkit-user-select: none;
+
+  /* allow the last card to visually meet the viewport edge */
+  overflow: visible;
+
+  /* set from JSX */
+  /* --item: px; */
+  /* --gap:  px; */
 }
 
-/* Two-group marquee. CSS animation drives translate; JS sets --half to exact px. */
-.carousel__track {
+/* Horizontal row of cards */
+.scrollCarousel__belt {
   display: flex;
   flex-wrap: nowrap;
   gap: var(--gap);
-  padding-inline: var(--gap); /* even spacing at edges */
+
+  /* make belt a good animation target */
   will-change: transform;
-  transform: translate3d(0,0,0);
-  animation: marquee var(--carousel-speed) linear infinite;
+
+  /* Push the last item to meet the viewport edge on large screens.
+     On smaller screens (where 100vw ~= container width), --edge-bleed is 0. */
+  padding-inline-end: var(--edge-bleed);
 }
 
-/* Each group keeps its natural width and holds spacing between items */
-.carousel__group {
-  display: flex;
-  gap: var(--gap);
-  flex: 0 0 auto; /* don't shrink */
-}
-
-/* Extra spacing between the duplicated groups (the seam) */
-.carousel__group + .carousel__group {
-  margin-left: var(--gap);
-}
-
-.carousel__item {
-  flex: 0 0 var(--item-width);
-  aspect-ratio: var(--item-aspect-w) / var(--item-aspect-h);
-  border-radius: 20px;
-  overflow: hidden;
-  background: #0b0b10;
-  box-shadow: 0 8px 24px rgba(0,0,0,.35);
-}
-
-.carousel__item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-@keyframes marquee {
-  from { transform: translate3d(0,0,0); }
-  to   { transform: translate3d(calc(-1 * var(--half, 50%)),0,0); }
-}
-
-@media (max-width: 720px) {
-  :root { --item-width: 44vw; }
-}
-:root {
-  --gap: 48px;         /* desktop spacing */
-  --item: 240px;       /* fixed px width = zero rounding drift */
-  --ar-w: 230;
-  --ar-h: 510;
-  --speed: 30s;        /* one full pass for a single group */
-}
-
-.scroller {
-  width: 100%;
-  overflow: hidden;
+/* Each card: fixed width, consistent aspect */
+.scrollCarousel__item {
   position: relative;
-  user-select: none;
-  -webkit-user-select: none;
-  padding-inline: var(--gap); /* even edge padding on the stationary wrapper */
-  /* optional: soft edge fade */
-  /* -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    black 40px,
-    black calc(100% - 40px),
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    black 40px,
-    black calc(100% - 40px),
-    transparent 100%
-  ); */
+  flex: 0 0 auto;
+  width: var(--item);
+  min-width: var(--item);
+  max-width: var(--item);
+
+  /* modern browsers get aspect-ratio; still OK on iOS 16+ */
+  aspect-ratio: 230 / 510;
+
+  border-radius: 24px;
+  overflow: hidden; /* keeps image corners rounded */
 }
 
-/* Belt = two identical groups side-by-side */
-.scroller__belt {
-  display: flex;
-  width: max-content;
-  will-change: transform;
-  animation: scroll var(--speed) linear infinite;
-}
-
-.scroller:hover .scroller__belt { animation-play-state: paused; }
-
-.scroller__group {
-  display: flex;
-  gap: var(--gap);
-  flex: 0 0 auto; /* keep natural width */
-}
-
-/* IMPORTANT: no extra margin/padding between groups; halves must be identical */
-
-.scroller__item {
-  list-style: none;
-  flex: 0 0 var(--item);
-  aspect-ratio: var(--ar-w) / var(--ar-h);
-  border-radius: 20px;
-  overflow: hidden;
-  background: #0b0b10;
-  box-shadow: 0 8px 24px rgba(0,0,0,.35);
-}
-
-.scroller__item img {
+/* iOS-safe image fit */
+.scrollCarousel__item img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  display: block;
   object-fit: cover;
+  display: block;        /* remove inline-gap */
+  pointer-events: none;  /* this is a non-interactive hero reel */
+  user-select: none;
 }
 
-@keyframes scroll {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .scroller__belt { animation: none; transform: none; }
-}
-
-@media (max-width: 720px) {
-  :root {
-    --item: 44vw;  /* can switch to vw on small screens */
-    --gap: 20px;
+/* Fallback for older browsers that don't support aspect-ratio (older Mobile Safari) */
+@supports not (aspect-ratio: 1) {
+  .scrollCarousel__item {
+    height: auto; /* height will be created by ::before */
+  }
+  .scrollCarousel__item::before {
+    content: "";
+    display: block;
+    width: 100%;
+    /* 510 / 230 = 2.217391... => 221.739% */
+    padding-top: 221.739%;
+  }
+  .scrollCarousel__item img {
+    position: absolute;
+    inset: 0;
   }
 }
