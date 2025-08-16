@@ -1,0 +1,71 @@
+.brands {
+  margin: 192px auto;
+}
+
+/* Grid wrapper */
+.brandsGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  /* Responsive grid: grows/shrinks nicely */
+  display: grid;
+  /* grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); */
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+/* Each tile */
+.brandCard {
+  position: relative;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+
+  /* Keep a consistent “tile” ratio */
+  aspect-ratio: 2/1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px;
+}
+
+/* The logos */
+.brandCard img {
+  width: 60%;
+  /* If you ever need to force white-on-dark for black logos:
+     filter: invert(1) brightness(1.2);
+  */
+}
+
+/* Tighter on small screens */
+@media (max-width: 1200px) {
+ /* .brandCard img {width: 66%; } */
+ .brandsGrid {
+  grid-template-columns: repeat(4, 1fr);
+ }
+}
+
+
+@media (max-width: 720px) {
+  .brandsGrid {
+    gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .brandCard {
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 500px) {
+  .brandsGrid {
+    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .brandCard {
+      aspect-ratio: 2/0.8;
+  }
+}
