@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.1c48c018.css",
-    "main.js": "/static/js/main.12f85c5f.js",
+    "main.css": "/static/css/main.ec8e2aec.css",
+    "main.js": "/static/js/main.4f68817b.js",
     "static/js/453.7fbbb176.chunk.js": "/static/js/453.7fbbb176.chunk.js",
     "static/media/01.jpg": "/static/media/01.cb11a4d21559db3cd147.jpg",
     "static/media/07.jpg": "/static/media/07.4470deb2823a4a5c1605.jpg",
@@ -17,13 +17,25 @@
     "static/media/GT-Walsheim-Condensed-Medium.woff2": "/static/media/GT-Walsheim-Condensed-Medium.bc8f9ab920616b42ee60.woff2",
     "static/media/GT-Walsheim-Light.woff2": "/static/media/GT-Walsheim-Light.2f45557205151880869d.woff2",
     "static/media/logo.svg": "/static/media/logo.8a05c2d4cbe7a04ea405b5b7e5058d1e.svg",
+    "static/media/UrsaMajor.svg": "/static/media/UrsaMajor.a73a5180e358e39d4084.svg",
+    "static/media/Beekman.svg": "/static/media/Beekman.cdb8972c06d6f2284a76.svg",
+    "static/media/Backdrop.svg": "/static/media/Backdrop.3af7121a22d5a49266e2.svg",
+    "static/media/Rifle.svg": "/static/media/Rifle.6d7755d1ad2c65b4f828.svg",
+    "static/media/Lululemon.svg": "/static/media/Lululemon.a37d944de65efe32e606.svg",
+    "static/media/Hairstory.svg": "/static/media/Hairstory.1accf1ccc32590922a3d.svg",
+    "static/media/HillHouse.svg": "/static/media/HillHouse.dcb0355741a4104b288c.svg",
+    "static/media/Knix.svg": "/static/media/Knix.5a34820cebb0c752f779.svg",
+    "static/media/Rareform.svg": "/static/media/Rareform.a85e1c257282c0997921.svg",
+    "static/media/LiveTinted.svg": "/static/media/LiveTinted.2a1437ad0ad9c057723d.svg",
+    "static/media/Ledger.svg": "/static/media/Ledger.0ac8e833155b0959c2c4.svg",
+    "static/media/Counter.svg": "/static/media/Counter.a6c0940389c49784f47c.svg",
     "index.html": "/index.html",
-    "main.1c48c018.css.map": "/static/css/main.1c48c018.css.map",
-    "main.12f85c5f.js.map": "/static/js/main.12f85c5f.js.map",
+    "main.ec8e2aec.css.map": "/static/css/main.ec8e2aec.css.map",
+    "main.4f68817b.js.map": "/static/js/main.4f68817b.js.map",
     "453.7fbbb176.chunk.js.map": "/static/js/453.7fbbb176.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1c48c018.css",
-    "static/js/main.12f85c5f.js"
+    "static/css/main.ec8e2aec.css",
+    "static/js/main.4f68817b.js"
   ]
 }
