@@ -21,28 +21,27 @@
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
-
-  /* Keep a consistent “tile” ratio */
   aspect-ratio: 2/1;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 8px;
+
+  &:hover {
+    background-color:white;
+    &.brandCard img {
+     filter: invert(1) brightness(1.2);
+  }
+  }
 }
 
 /* The logos */
 .brandCard img {
   width: 60%;
-  /* If you ever need to force white-on-dark for black logos:
-     filter: invert(1) brightness(1.2);
-  */
 }
 
 /* Tighter on small screens */
 @media (max-width: 1200px) {
- /* .brandCard img {width: 66%; } */
  .brandsGrid {
   grid-template-columns: repeat(4, 1fr);
  }

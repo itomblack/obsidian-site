@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from './Button';
 import logo from '../assets/logo.svg';
-import './NavBar.css';
+import './NavBar.scss';
 
 export default function NavBar() {
   return (

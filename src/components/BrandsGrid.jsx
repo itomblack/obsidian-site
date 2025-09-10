@@ -1,5 +1,5 @@
 import React from 'react';
-import './BrandsGrid.css';
+import './BrandsGrid.scss';
 
 /**
  * Auto-import all .svg files in /assets/brand-logos (no subfolders).
@@ -28,7 +28,7 @@ export default function BrandsGrid() {
       
       <h1 className="brands__eyebrow">Trusted by<span className="dot">.</span></h1>
 
-      <ul className="brandsGrid" role="list">
+      <ul className="brandsGrid">
         {logos.map(({ src, name, file }) => (
           <li className="brandCard" key={file}>
             {/* If some SVGs are dark, you can add a `data-invert` on specific ones and style accordingly */}

@@ -1,6 +1,6 @@
 // src/components/HeroCarousel.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import "./HeroCarousel.css";
+import "./HeroCarousel.scss";
 
 export default function HeroCarousel() {
   const scrollerRef = useRef(null); // the .scrollCarousel (visible area)

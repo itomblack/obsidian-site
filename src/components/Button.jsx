@@ -1,5 +1,5 @@
 import React from 'react';
-import './Button.css';
+import './Button.scss';
 
 export default function Button({ label, onClick, href, target }) {
   // If an href is provided, render as a link

@@ -1,5 +1,5 @@
 import React from 'react';
-import './FullBleedImage.css';
+import './FullBleedImage.scss';
 import showcase from '../assets/showcase.png'; // replace with your image
 
 export default function FullBleedImage() {
