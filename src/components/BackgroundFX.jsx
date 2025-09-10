@@ -13,6 +13,7 @@ export default function BackgroundFX() {
       <div className="bgfx__blob bgfx__blob--left" />
       <div className="bgfx__blob bgfx__blob--right" />
       <div className="bgfx__vignette" />
+      <div className="bgfx__grain" />
     </div>
   );
 }
