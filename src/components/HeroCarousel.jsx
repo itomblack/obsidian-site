@@ -19,7 +19,7 @@ export default function HeroCarousel() {
   const DESKTOP_GAP = 48;   // px
 
   // Start when this much of the carousel is visible (0..1)
-  const START_VISIBILITY = 0.75;
+  const START_VISIBILITY = 0.4;
 
   // Horizontal pixels moved per 1px vertical scroll
   const MOBILE_SPEED  = 0.55;
@@ -41,29 +41,100 @@ export default function HeroCarousel() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // load images from the folder (Vite + CRA compatible)
-  const imgs = useMemo(() => {
+  // Load Desktop/Mobile variants if present and pair them by base filename
+  // e.g., 01-Desktop.jpg and 01-Mobile.jpg -> { key: '01', desktop, mobile }
+  const items = useMemo(() => {
+    const makePairsFromMaps = (mobileMap, desktopMap) => {
+      const toUrl = (v) => (v && v.default) ? v.default : v;
+      const pairs = {};
+      const normBase = (p) => {
+        const file = p.split('/').pop();
+        const noExt = file.replace(/\.(png|jpe?g|webp|avif|gif|svg)$/i, '');
+        return noExt.replace(/-(Mobile|Desktop)$/i, '');
+      };
+
+      Object.entries(mobileMap || {}).forEach(([path, mod]) => {
+        const base = normBase(path);
+        pairs[base] = pairs[base] || {};
+        pairs[base].mobile = toUrl(mod);
+      });
+      Object.entries(desktopMap || {}).forEach(([path, mod]) => {
+        const base = normBase(path);
+        pairs[base] = pairs[base] || {};
+        pairs[base].desktop = toUrl(mod);
+      });
+
+      const keys = Object.keys(pairs).sort((a, b) => {
+        const na = parseInt(a, 10);
+        const nb = parseInt(b, 10);
+        if (!Number.isNaN(na) && !Number.isNaN(nb)) return na - nb;
+        return a.localeCompare(b);
+      });
+
+      return keys.map((k) => {
+        const pair = pairs[k];
+        const mobile = pair.mobile ?? pair.desktop;
+        const desktop = pair.desktop ?? pair.mobile;
+        return { key: k, mobile, desktop };
+      });
+    };
+
     // Vite / import.meta.glob
     try {
       if (typeof import.meta !== "undefined" && typeof import.meta.glob === "function") {
-        const modMap = import.meta.glob(
-          "../assets/img-hero-carousel/*.{png,jpg,jpeg,webp,gif,svg}",
+        const mobileMap = import.meta.glob(
+          "../assets/img-hero-carousel/*-Mobile.{png,jpg,jpeg,webp,avif}",
           { eager: true }
         );
-        return Object.keys(modMap)
-          .sort()
-          .map((k) => modMap[k]?.default ?? modMap[k]);
+        const desktopMap = import.meta.glob(
+          "../assets/img-hero-carousel/*-Desktop.{png,jpg,jpeg,webp,avif}",
+          { eager: true }
+        );
+        const pairs = makePairsFromMaps(mobileMap, desktopMap);
+        if (pairs.length) return pairs;
       }
     } catch (_) {}
 
     // CRA / webpack require.context
+    try {
+      const mobileCtx = require.context(
+        "../assets/img-hero-carousel",
+        false,
+        /-Mobile\.(png|jpe?g|webp|avif)$/i
+      );
+      const desktopCtx = require.context(
+        "../assets/img-hero-carousel",
+        false,
+        /-Desktop\.(png|jpe?g|webp|avif)$/i
+      );
+      const mobileMap = Object.fromEntries(mobileCtx.keys().map((k) => [k, mobileCtx(k)]));
+      const desktopMap = Object.fromEntries(desktopCtx.keys().map((k) => [k, desktopCtx(k)]));
+      const pairs = makePairsFromMaps(mobileMap, desktopMap);
+      if (pairs.length) return pairs;
+    } catch (_) {}
+
+    // Fallback: any images (legacy names like 01.jpg)
+    try {
+      if (typeof import.meta !== "undefined" && typeof import.meta.glob === "function") {
+        const anyMap = import.meta.glob(
+          "../assets/img-hero-carousel/*.{png,jpg,jpeg,webp,gif,svg}",
+          { eager: true }
+        );
+        const toUrl = (v) => (v && v.default) ? v.default : v;
+        return Object.keys(anyMap).sort().map((k) => ({ key: k, mobile: toUrl(anyMap[k]), desktop: toUrl(anyMap[k]) }));
+      }
+    } catch (_) {}
     try {
       const ctx = require.context(
         "../assets/img-hero-carousel",
         false,
         /\.(png|jpe?g|webp|gif|svg)$/i
       );
-      return ctx.keys().sort().map((k) => ctx(k)?.default ?? ctx(k));
+      return ctx.keys().sort().map((k) => {
+        const v = ctx(k);
+        const url = (v && v.default) ? v.default : v;
+        return { key: k, mobile: url, desktop: url };
+      });
     } catch (e) {
       console.warn("[HeroCarousel] No images found", e);
       return [];
@@ -174,15 +245,20 @@ export default function HeroCarousel() {
       window.removeEventListener("resize", recomputeBounds);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imgs, isMobile]);
+  }, [items, isMobile]);
 
   return (
     <div className="section-inset">
       <section className="scrollCarousel" style={styleVars} ref={scrollerRef}>
         <div className="scrollCarousel__belt" ref={beltRef}>
-          {imgs.map((src, i) => (
+          {items.map(({ mobile, desktop }, i) => (
             <div className="scrollCarousel__item" key={i}>
-              <img src={src} alt={`Work ${i + 1}`} loading="lazy" />
+              <picture>
+                {desktop && (
+                  <source media="(min-width: 720px)" srcSet={desktop} />
+                )}
+                <img src={mobile || desktop} alt={`Work ${i + 1}`} loading="lazy" />
+              </picture>
             </div>
           ))}
         </div>

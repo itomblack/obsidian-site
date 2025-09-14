@@ -7,7 +7,7 @@ export default function HeroSection() {
       <div className="hero-section">
         <h1>Growth,<br />by design<span className="dot">.</span></h1>
         <p class="hero-subtitle">
-          For retail operators sick of stores that don’t perform – we bring the design expertise & conversion rate optimization knowledge to grow your business without compromising your brand.
+          Build a store that performs as beautifully as it looks. Our UX, Design, and CRO expertise will turn your ecommerce experience into a growth engine, to expand you business without compromising your brand.
         </p>
       </div>
     </div>

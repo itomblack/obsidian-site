@@ -50,6 +50,10 @@ body {
 
   border-radius: 24px;
   overflow: hidden; /* keeps image corners rounded */
+
+  @media (max-width: 720px) {
+    border-radius: 12px;
+  }
 }
 
 /* iOS-safe image fit */
