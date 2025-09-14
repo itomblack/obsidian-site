@@ -1,15 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.de8015e7.css",
-    "main.js": "/static/js/main.3870d47d.js",
+    "main.css": "/static/css/main.6715854a.css",
+    "main.js": "/static/js/main.41c8eaf7.js",
     "static/js/453.7fbbb176.chunk.js": "/static/js/453.7fbbb176.chunk.js",
-    "static/media/05.jpg": "/static/media/05.aae6a57972f8ff5089b7.jpg",
-    "static/media/02.jpg": "/static/media/02.9e43c386afa56bb4f00a.jpg",
-    "static/media/01.jpg": "/static/media/01.571876eae828dba04629.jpg",
-    "static/media/07.jpg": "/static/media/07.6b5259735490f0a19577.jpg",
-    "static/media/04.jpg": "/static/media/04.44912a166cc6b2469a1d.jpg",
-    "static/media/03.jpg": "/static/media/03.5d85ce829f5d36e8a150.jpg",
-    "static/media/06.jpg": "/static/media/06.feafddd4a66b7d8d25e9.jpg",
+    "static/media/02-Desktop.jpg": "/static/media/02-Desktop.49ffaf9ac97fb72e1a61.jpg",
+    "static/media/01-Desktop.jpg": "/static/media/01-Desktop.84c61f500dd46ee5bb6d.jpg",
+    "static/media/05-Desktop.jpg": "/static/media/05-Desktop.e568392cd03ce5429b92.jpg",
+    "static/media/04-Desktop.jpg": "/static/media/04-Desktop.5a35de1b1c9030163791.jpg",
+    "static/media/07-Desktop.jpg": "/static/media/07-Desktop.8fa18d37d63ae7bf1820.jpg",
+    "static/media/03-Desktop.jpg": "/static/media/03-Desktop.1cfec1c2f6cb87cf2413.jpg",
+    "static/media/06-Desktop.jpg": "/static/media/06-Desktop.2b07827c4ed98864a5ee.jpg",
+    "static/media/02-Mobile.jpg": "/static/media/02-Mobile.7440328fc2557521a283.jpg",
+    "static/media/01-Mobile.jpg": "/static/media/01-Mobile.6b98be912deefe1f38b9.jpg",
+    "static/media/05-Mobile.jpg": "/static/media/05-Mobile.abbe1c26d1a5e2bb613f.jpg",
+    "static/media/04-Mobile.jpg": "/static/media/04-Mobile.8e3369962ac749b7e5d2.jpg",
+    "static/media/07-Mobile.jpg": "/static/media/07-Mobile.bc2b8f2ee1c3d6dafa58.jpg",
+    "static/media/06-Mobile.jpg": "/static/media/06-Mobile.48d3737368ce002b4971.jpg",
+    "static/media/03-Mobile.jpg": "/static/media/03-Mobile.0a5a35ceed50aaaaaa0e.jpg",
     "static/media/GT-Walsheim-Black-Oblique.woff2": "/static/media/GT-Walsheim-Black-Oblique.61f1674c1e394f30f7ef.woff2",
     "static/media/GT-Walsheim-Condensed-Medium-Oblique.woff2": "/static/media/GT-Walsheim-Condensed-Medium-Oblique.830e05e14d9c6d02a459.woff2",
     "static/media/GT-Walsheim-Light-Oblique.woff2": "/static/media/GT-Walsheim-Light-Oblique.64e2907dbb9e7bf00094.woff2",
@@ -30,12 +37,12 @@
     "static/media/Ledger.svg": "/static/media/Ledger.0ac8e833155b0959c2c4.svg",
     "static/media/Counter.svg": "/static/media/Counter.a6c0940389c49784f47c.svg",
     "index.html": "/index.html",
-    "main.de8015e7.css.map": "/static/css/main.de8015e7.css.map",
-    "main.3870d47d.js.map": "/static/js/main.3870d47d.js.map",
+    "main.6715854a.css.map": "/static/css/main.6715854a.css.map",
+    "main.41c8eaf7.js.map": "/static/js/main.41c8eaf7.js.map",
     "453.7fbbb176.chunk.js.map": "/static/js/453.7fbbb176.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.de8015e7.css",
-    "static/js/main.3870d47d.js"
+    "static/css/main.6715854a.css",
+    "static/js/main.41c8eaf7.js"
   ]
 }
