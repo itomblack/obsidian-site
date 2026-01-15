@@ -1,0 +1,107 @@
+.reviews {
+  margin-top: 64px;
+}
+
+.reviews__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.reviews__title {
+  font-size: clamp(28px, 4vw, 56px);
+  line-height: 1.05;
+  margin: 0;
+}
+
+.reviews__controls {
+  display: flex;
+  gap: 10px;
+}
+
+.reviews__arrow {
+  appearance: none;
+  border: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: #2a2730;
+  color: #fff;
+  font-size: 20px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.2), 0 0 0 2px rgba(154,105,255,0.5) inset;
+}
+
+.reviewsCarousel {
+  --gap: 16px;
+  --peek: clamp(20px, 7vw, 84px); /* visible sliver of neighbors */
+  --max-card: 860px;
+  position: relative;
+  overflow: hidden;
+  padding-inline: var(--peek);
+  padding-block: 8px;
+}
+
+.reviewsCarousel__belt {
+  display: flex;
+  gap: var(--gap);
+  will-change: transform;
+}
+
+.reviewCard {
+  flex: 0 0 auto;
+  width: min(calc(100% - (var(--peek) * 2)), var(--max-card));
+  min-height: 220px;
+  background: #2f2f34;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #eee;
+  padding: 28px 28px 24px 28px;
+  position: relative;
+  user-select: none;
+  cursor: default;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.35);
+}
+
+.reviewCard.is-near { cursor: pointer; }
+
+.reviewCard__quoteMark {
+  position: absolute;
+  top: 10px;
+  left: 16px;
+  font-size: 40px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.28);
+}
+
+.reviewCard__quote {
+  font-size: clamp(18px, 2.2vw, 28px);
+  line-height: 1.25;
+  margin: 18px 0 16px;
+}
+
+.reviewCard__meta {
+  color: rgba(255,255,255,0.75);
+  font-size: 14px;
+}
+
+.reviewCard__author {
+  font-weight: 600;
+}
+
+.reviewCard__title {
+  opacity: 0.9;
+}
+
+/* Active vs near styling */
+.reviewCard.is-active {
+  outline: 1px solid rgba(255,255,255,0.12);
+}
+
+.reviewCard.is-near:hover {
+  outline: 1px solid rgba(154,105,255,0.7);
+}

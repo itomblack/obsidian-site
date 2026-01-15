@@ -4,6 +4,7 @@ import HeroSection from '../components/HeroSection';
 import HeroCarousel from '../components/HeroCarousel'; 
 // import AnnouncementBanner from '../components/AnnouncementBanner';
 import BrandsGrid from '../components/BrandsGrid';
+import ReviewsCarousel from '../components/ReviewsCarousel';
 // import FullBleedImage from '../components/FullBleedImage';
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       <HeroSection />
       <HeroCarousel/>
       <BrandsGrid /> 
+      <ReviewsCarousel />
       {/* <div className="HomeSpacer"></div> */}
       {/* <FullBleedImage /> */}
     </>
