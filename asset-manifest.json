@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.6715854a.css",
-    "main.js": "/static/js/main.41c8eaf7.js",
+    "main.css": "/static/css/main.5696817c.css",
+    "main.js": "/static/js/main.ced3900c.js",
     "static/js/453.7fbbb176.chunk.js": "/static/js/453.7fbbb176.chunk.js",
     "static/media/02-Desktop.jpg": "/static/media/02-Desktop.49ffaf9ac97fb72e1a61.jpg",
     "static/media/01-Desktop.jpg": "/static/media/01-Desktop.84c61f500dd46ee5bb6d.jpg",
@@ -37,12 +37,12 @@
     "static/media/Ledger.svg": "/static/media/Ledger.0ac8e833155b0959c2c4.svg",
     "static/media/Counter.svg": "/static/media/Counter.a6c0940389c49784f47c.svg",
     "index.html": "/index.html",
-    "main.6715854a.css.map": "/static/css/main.6715854a.css.map",
-    "main.41c8eaf7.js.map": "/static/js/main.41c8eaf7.js.map",
+    "main.5696817c.css.map": "/static/css/main.5696817c.css.map",
+    "main.ced3900c.js.map": "/static/js/main.ced3900c.js.map",
     "453.7fbbb176.chunk.js.map": "/static/js/453.7fbbb176.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6715854a.css",
-    "static/js/main.41c8eaf7.js"
+    "static/css/main.5696817c.css",
+    "static/js/main.ced3900c.js"
   ]
 }
