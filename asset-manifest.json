@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.5696817c.css",
-    "main.js": "/static/js/main.ced3900c.js",
+    "main.js": "/static/js/main.2f52320d.js",
     "static/js/453.7fbbb176.chunk.js": "/static/js/453.7fbbb176.chunk.js",
     "static/media/02-Desktop.jpg": "/static/media/02-Desktop.49ffaf9ac97fb72e1a61.jpg",
     "static/media/01-Desktop.jpg": "/static/media/01-Desktop.84c61f500dd46ee5bb6d.jpg",
@@ -38,11 +38,11 @@
     "static/media/Counter.svg": "/static/media/Counter.a6c0940389c49784f47c.svg",
     "index.html": "/index.html",
     "main.5696817c.css.map": "/static/css/main.5696817c.css.map",
-    "main.ced3900c.js.map": "/static/js/main.ced3900c.js.map",
+    "main.2f52320d.js.map": "/static/js/main.2f52320d.js.map",
     "453.7fbbb176.chunk.js.map": "/static/js/453.7fbbb176.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5696817c.css",
-    "static/js/main.ced3900c.js"
+    "static/js/main.2f52320d.js"
   ]
 }
