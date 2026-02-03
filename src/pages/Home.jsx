@@ -15,7 +15,7 @@ export default function Home() {
       <HeroSection />
       <HeroCarousel/>
       <BrandsGrid /> 
-      <ReviewsCarousel />
+      {/* <ReviewsCarousel /> */}
       {/* <div className="HomeSpacer"></div> */}
       {/* <FullBleedImage /> */}
     </>
