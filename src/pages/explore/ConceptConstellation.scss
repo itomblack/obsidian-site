@@ -1,0 +1,121 @@
+.concept--constellation {
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(
+    ellipse at 50% 30%,
+    #0c0a18 0%,
+    #050507 50%,
+    #000 100%
+  );
+  overflow: hidden;
+  padding-bottom: 80px;
+
+  .constellation__intro {
+    text-align: center;
+    padding: 80px 24px 24px;
+    max-width: 740px;
+    margin: 0 auto;
+
+    .constellation__eyebrow {
+      font-family: 'GT Walsheim Condensed', sans-serif;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: clamp(40px, 6vw, 76px);
+      font-weight: 800;
+      line-height: 0.98;
+      letter-spacing: -0.015em;
+      margin: 0 0 20px;
+    }
+
+    p {
+      max-width: 540px;
+      margin: 0 auto;
+      font-size: 16px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  /* loose, hand-arranged grid */
+  .constellation__field {
+    position: relative;
+    width: min(1200px, 100%);
+    margin: 40px auto 0;
+    aspect-ratio: 16 / 11;
+    padding: 0 24px;
+  }
+
+  .constellation__slot {
+    position: absolute;
+    animation: orb-drift 8s ease-in-out infinite;
+
+    /* sizes & positions tuned for a balanced cluster */
+    &--1 { width: 18%; top: 6%;  left: 4%; }
+    &--2 { width: 14%; top: 32%; left: 14%; }
+    &--3 { width: 22%; top: 56%; left: 2%; }
+    &--4 { width: 16%; top: 8%;  right: 8%; }
+    &--5 { width: 20%; top: 38%; right: 14%; }
+    &--6 { width: 14%; top: 70%; right: 4%; }
+    &--7 { width: 16%; top: 76%; left: 36%; }
+  }
+
+  .constellation__center {
+    position: absolute;
+    width: 28%;
+    top: 30%;
+    left: 36%;
+    animation: orb-drift 11s ease-in-out infinite;
+
+    .orb__sphere { animation: orb-rotate-slow 90s linear infinite; }
+  }
+
+  .constellation__center-cta {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: clamp(14px, 1.4vw, 20px);
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .constellation__foot {
+    text-align: center;
+    margin-top: 60px;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 800px) {
+    .constellation__field {
+      aspect-ratio: 4 / 5;
+    }
+
+    .constellation__slot {
+      &--1 { width: 30%; top: 4%;  left: 4%; }
+      &--2 { width: 24%; top: 22%; right: 6%; left: auto; }
+      &--3 { width: 32%; top: 42%; left: 2%; }
+      &--4 { width: 26%; top: 64%; right: 6%; left: auto; }
+      &--5 { display: none; }
+      &--6 { display: none; }
+      &--7 { display: none; }
+    }
+
+    .constellation__center {
+      width: 44%;
+      top: 30%;
+      left: 28%;
+    }
+  }
+}
