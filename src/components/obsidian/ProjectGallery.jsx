@@ -20,14 +20,14 @@ const projectImageSizes = '(max-width: 767px) 100vw, (max-width: 1199px) 94vw, 8
 
 export const projects = [
   {
-    name: 'Maven Clinic',
+    name: 'Maven Clinic.',
     category: 'Consumer launch',
     summary: "Zero-to-one launch of a new consumer business arm for this $1.7 billion-dollar women's health-tech brand.",
     image: maven960,
     imageSrcSet: `${maven640} 640w, ${maven960} 960w, ${maven1440} 1440w, ${maven2200} 2200w`,
   },
   {
-    name: 'Counter',
+    name: 'Counter Beauty.',
     category: 'Commerce transformation',
     summary: 'Designed a best-in-class ecommerce experience, and affiliate sales dashboard for the relaunch of this pioneering American beauty brand.',
     image: counter960,
@@ -41,7 +41,7 @@ export const projects = [
     imageSrcSet: `${ledger640} 640w, ${ledger960} 960w, ${ledger1440} 1440w, ${ledger2200} 2200w`,
   },
   {
-    name: 'Lululemon',
+    name: 'Lululemon.',
     category: 'Commerce evolution',
     summary: 'Grew online conversion rate by 83% for this billion-dollar athleisure brand across 12 international regions.',
     image: lululemon960,
