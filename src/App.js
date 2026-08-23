@@ -1,27 +1,27 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import BackgroundFX from "./components/BackgroundFX";
+import React, { useEffect } from 'react';
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
-import Empty from './pages/Empty';
-import Typography from './pages/Typography';
+import DesignSystem from './pages/DesignSystem';
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
 
-function App() {
-  return (
-     <>
-      {/* Global, fixed background layer */}
-      <BackgroundFX />
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
-      {/* Routed content sits above background layer */}
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/empty" element={<Empty />} />1
-          <Route path="/typography" element={<Typography />} />
-        </Routes>
-      </Router>
-    </>
-  );
+  return null;
 }
 
-export default App;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/design-system" element={<DesignSystem />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}

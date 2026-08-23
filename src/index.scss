@@ -1,168 +1,191 @@
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('./assets/fonts/Obsidian2026/InstrumentSerif-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('./assets/fonts/Obsidian2026/InstrumentSerif-Italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fragment Mono';
+  src: url('./assets/fonts/Obsidian2026/FragmentMono-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/Obsidian2026/Inter-Light.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/Obsidian2026/Inter-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/Obsidian2026/Inter-Medium.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
 :root {
-  --site-marg-desk: 48px;
-  --site-marg-mob: 16px;
-  --color-black: #010105;
-  --color-purple: #2F1B65;
-  --color-blue: #5123FF;
-  --color-darkpink: #C226F8;
-  --color-pink: #E223FF;
-  --color-yellow: #FFA303;
-  --color-white: #FFFFFF;
+  --ink: #080808;
+  --ink-rich: #000000;
+  --stone: #cdd0c5;
+  --paper: #f0f0ee;
+  --white: #ffffff;
+  --sage: #5c8a7e;
+  --sand: #c8b195;
+  --line: rgba(255, 255, 255, 0.1);
+  --muted: rgba(255, 255, 255, 0.62);
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-label: 'Fragment Mono', 'Courier New', monospace;
+  --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --page-gutter: clamp(24px, 4vw, 64px);
+  --content-max: 1120px;
+  --ease-premium: cubic-bezier(0.2, 0.75, 0.25, 1);
+  --duration-fast: 240ms;
+  --duration-slow: 500ms;
 }
 
-@font-face {
-  font-family: 'GT Walsheim';
-  src: url('./assets/fonts/GTWalsheim/GT-Walsheim-Black.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
+html {
+  box-sizing: border-box;
+  background: var(--ink-rich);
+  color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
-@font-face {
-  font-family: 'GT Walsheim';
-  src: url('./assets/fonts/GTWalsheim/GT-Walsheim-Black-Oblique.woff2') format('woff2');
-  font-weight: 800;
-  font-style: oblique;
-}
-
-@font-face {
-  font-family: 'GT Walsheim Condensed';
-  src: url('./assets/fonts/GTWalsheim/GT-Walsheim-Condensed-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'GT Walsheim Condensed';
-  src: url('./assets/fonts/GTWalsheim/GT-Walsheim-Condensed-Medium-Oblique.woff2') format('woff2');
-  font-weight: 500;
-  font-style: oblique;
-}
-
-@font-face {
-  font-family: 'GT Walsheim';
-  src: url('./assets/fonts/GTWalsheim/GT-Walsheim-Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'GT Walsheim';
-  src: url('./assets/fonts/GTWalsheim/GT-Walsheim-Light-Oblique.woff2') format('woff2');
-  font-weight: 300;
-  font-style: oblique;
-}
-
-.page-padding {
-  padding-left: var(--site-margin-desktop);
-  padding-right: var(--site-margin-desktop);
-}
-
-@media (max-width: 720px) {
-  .page-padding {
-    padding-left: var(--site-margin-mobile);
-    padding-right: var(--site-margin-mobile);
-  }
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
 body {
   margin: 0;
-  font-family: "GT Walsheim", "Helvetica Neue", Arial, sans-serif;
-  background-color: var(--color-black);
-  color: var(--color-white);
+  min-width: 320px;
+  background: var(--ink-rich);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-h1 {
-  font-size: 100px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 100%;
+button,
+a {
+  color: inherit;
 }
 
-h2 {
-  font-size: 75px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 100%;
+button {
+  font: inherit;
 }
 
-h3 {
-  font-size: 48px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 100%; 
+img {
+  display: block;
+  max-width: 100%;
 }
 
-h4 {
-  font-size: 36px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 100%; 
+::selection {
+  background: var(--stone);
+  color: var(--ink);
 }
 
-h5 {
-  font-family: "GT Walsheim Condensed";
-  font-size: 24px;
-  line-height: 130%;
-  letter-spacing: 2px;
+.type-display,
+.type-title,
+.type-quote {
+  margin: -0.06em -0.08em -0.16em;
+  padding: 0.06em 0.08em 0.16em;
+  overflow: visible;
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+.type-display {
+  font-size: 4.5rem;
+  line-height: 1.08;
+}
+
+.type-title {
+  font-size: clamp(2rem, 2.6vw, 2.7rem);
+  line-height: 1.08;
+}
+
+.type-quote {
+  font-size: clamp(2rem, 3.05vw, 2.7rem);
+  line-height: 1.42;
+}
+
+.type-label {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
 }
 
-h6 {
-  font-size: 24px;
-  font-style: normal;
+.type-body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
   font-weight: 300;
-  line-height: 130%;
-  letter-spacing: 0.5px;
+  line-height: 1.45;
 }
 
-p {
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 130%; 
-  letter-spacing: 0.25px;
-}
+@media (max-width: 767px) {
+  :root {
+    --page-gutter: 20px;
+  }
 
-@media (max-width: 720px) {
+  .type-display {
+    font-size: 2.75rem
+  }
 
-  h1 {
-    font-size: 50px;
+  .type-title {
+    font-size: 2.15rem;
+  }
+
+  .type-quote {
+    font-size: 1.5rem;
+    line-height: 1.35;
+  }
+
+  .type-body {
+    font-size: 0.95rem;
   }
 }
 
-
-/* Global styles */
-html {
-  box-sizing: border-box;
-}
-
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
-
-.section-inset {
-   width: 100%;
-   max-width: 1440px;
-   padding-left: var(--site-marg-desk);
-   padding-right: var(--site-marg-desk);
-   margin: auto;
-}
-
-@media (max-width: 800px) {
-  .section-inset {
-    padding-left: var(--site-marg-mob);
-    padding-right: var(--site-marg-mob);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
- }
 
-
-.section-fullbleed {
-  width: 100%;
-  margin: auto;
-}
-
-.HomeSpacer {
-  width: 100%;
-  height: 600px;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
