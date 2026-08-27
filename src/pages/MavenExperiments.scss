@@ -177,7 +177,7 @@
   transition: background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms var(--ease-premium);
 }
 
-.deck-actions button:hover { transform: translateY(-2px); }
+.deck-actions button:hover { transform: scale(1.02); }
 .deck-actions button:active { transform: translateY(0) scale(0.98); }
 .deck-actions button:focus-visible { outline: 2px solid var(--maven-sage); outline-offset: 3px; }
 .deck-actions button:disabled { cursor: default; opacity: 0.28; transform: none; }
