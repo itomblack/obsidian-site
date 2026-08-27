@@ -1,0 +1,349 @@
+.phone-mode-trigger {
+  position: fixed;
+  z-index: 40;
+  right: 24px;
+  bottom: 24px;
+  display: grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  background: rgba(11, 13, 13, 0.72);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.82);
+  cursor: pointer;
+  backdrop-filter: blur(18px) saturate(1.15);
+  transition: width 420ms cubic-bezier(0.16, 1, 0.3, 1), border-color 240ms ease, color 240ms ease;
+}
+
+.phone-mode-trigger svg {
+  width: 23px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.45;
+}
+
+.phone-mode-trigger span {
+  position: absolute;
+  right: 48px;
+  overflow: hidden;
+  width: 0;
+  color: currentColor;
+  font-family: var(--font-label);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  opacity: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: width 350ms cubic-bezier(0.16, 1, 0.3, 1), opacity 180ms ease;
+}
+
+.phone-mode-trigger:hover,
+.phone-mode-trigger:focus-visible {
+  width: 166px;
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+  outline: none;
+}
+
+.phone-mode-trigger:hover span,
+.phone-mode-trigger:focus-visible span {
+  width: 94px;
+  opacity: 1;
+}
+
+.phone-mode {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  overflow: hidden;
+  background: #060807;
+  color: #fff;
+  isolation: isolate;
+  animation: phone-mode-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.phone-mode::before,
+.phone-mode::after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  pointer-events: none;
+}
+
+.phone-mode::before {
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent calc(50% - 1px), rgba(255, 255, 255, 0.05) 50%, transparent calc(50% + 1px)),
+    radial-gradient(circle at 50% 45%, rgba(180, 210, 201, 0.1), transparent 36%),
+    radial-gradient(ellipse 40% 26% at 50% 92%, rgba(111, 145, 135, 0.12), transparent 72%);
+}
+
+.phone-mode::after {
+  inset: 0;
+  background-image: linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 20vw 100%;
+  mask-image: linear-gradient(90deg, transparent, black 20%, black 80%, transparent);
+}
+
+.phone-mode__atmosphere {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  width: min(72vw, 980px);
+  height: min(72vw, 980px);
+  border: 1px solid rgba(255, 255, 255, 0.035);
+  border-radius: 50%;
+  box-shadow: 0 0 130px rgba(155, 183, 175, 0.05), inset 0 0 110px rgba(155, 183, 175, 0.025);
+  transform: translate(-50%, -50%);
+}
+
+.phone-mode__bar {
+  position: absolute;
+  z-index: 8;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px;
+}
+
+.phone-mode__bar p,
+.phone-mode__hint,
+.phone-mode__error {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.42);
+  font-family: var(--font-label);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.phone-mode__bar p span { color: rgba(255, 255, 255, 0.82); }
+
+.phone-mode__bar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 9px 9px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.055);
+  color: rgba(255, 255, 255, 0.76);
+  cursor: pointer;
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: border-color 220ms ease, background 220ms ease, color 220ms ease;
+}
+
+.phone-mode__bar button:hover,
+.phone-mode__bar button:focus-visible {
+  border-color: rgba(255, 255, 255, 0.38);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  outline: none;
+}
+
+.phone-mode__bar button svg {
+  width: 22px;
+  height: 22px;
+  padding: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 1.5;
+}
+
+.phone-mode__scene {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.phone-mode__device {
+  --phone-height: min(88svh, 900px);
+  position: relative;
+  width: calc(var(--phone-height) * 0.5);
+  height: var(--phone-height);
+  opacity: 0;
+  filter: drop-shadow(0 46px 46px rgba(0, 0, 0, 0.48));
+  transform: translateY(18px) scale(0.975);
+  transition: opacity 500ms ease, transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.phone-mode__device.is-ready {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.phone-mode__device::after {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 89.4%;
+  height: 91.5%;
+  border-radius: 12.5% / 5.9%;
+  background: #020303;
+  content: '';
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.phone-mode__hardware,
+.phone-mode__hardware canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.phone-mode__screen {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: 86.8%;
+  height: 88.9%;
+  overflow: hidden;
+  border-radius: 12.1% / 5.7%;
+  background: #050505;
+  box-shadow: 0 0 0 2px #050606, inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transform: translate(-50%, -50%);
+}
+
+.phone-mode__screen iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #000;
+}
+
+.phone-mode__glass {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(112deg, rgba(255, 255, 255, 0.09), transparent 13%, transparent 64%, rgba(188, 219, 232, 0.055) 76%, transparent 100%);
+  box-shadow: inset 0 0 0 1px rgba(225, 240, 246, 0.12);
+  pointer-events: none;
+}
+
+.phone-mode__island {
+  position: absolute;
+  z-index: 4;
+  top: 1.9%;
+  left: 50%;
+  width: 28%;
+  height: 3.3%;
+  border-radius: 999px;
+  background: #050606;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), 0 1px 3px rgba(0, 0, 0, 0.34);
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.phone-mode__shadow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(32vw, 450px);
+  height: min(82vh, 780px);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.46);
+  filter: blur(64px);
+  opacity: 0.72;
+  pointer-events: none;
+  transform: translate(-43%, -45%) rotate(-5deg);
+}
+
+.phone-mode__loading {
+  position: absolute;
+  z-index: 6;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(10, 12, 11, 0.78);
+  color: rgba(255, 255, 255, 0.62);
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  backdrop-filter: blur(18px);
+  transform: translate(-50%, -50%);
+}
+
+.phone-mode__loading span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9fc8bc;
+  box-shadow: 0 0 0 5px rgba(159, 200, 188, 0.1);
+  animation: phone-loading 1.2s ease-in-out infinite;
+}
+
+.phone-mode__error {
+  position: absolute;
+  z-index: 5;
+  bottom: 52px;
+  left: 50%;
+  max-width: 360px;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.phone-mode__hint {
+  position: absolute;
+  z-index: 6;
+  bottom: 23px;
+  left: 50%;
+  color: rgba(255, 255, 255, 0.32);
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+@keyframes phone-mode-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes phone-loading {
+  50% { opacity: 0.45; transform: scale(0.72); }
+}
+
+@media (max-width: 959px) {
+  .phone-mode-trigger { display: none; }
+}
+
+@media (max-height: 720px) {
+  .phone-mode__device { --phone-height: min(84svh, 650px); }
+  .phone-mode__hint { display: none; }
+  .phone-mode__bar { padding-block: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phone-mode,
+  .phone-mode__loading span { animation: none; }
+  .phone-mode__device { transition: opacity 100ms ease; transform: none; }
+}
