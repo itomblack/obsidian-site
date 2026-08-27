@@ -334,17 +334,18 @@
   }
 
   .story-deck__media { grid-column: 1 / -1; }
-  .story-deck__copy { grid-column: 1 / -1; margin-left: 28px; }
+  .story-deck__copy { grid-column: 1 / -1; margin-left: 0; }
   .maven-copy { max-width: none; gap: 18px; }
   .maven-copy h1 { font-size: clamp(2.4rem, 11.2vw, 3rem); }
   .maven-copy__body p { font-size: 0.97rem; line-height: 1.5; }
 
   .deck-actions {
-    top: calc(var(--grid-content) + 20px);
-    right: 0;
+    position: fixed;
+    z-index: 48;
+    top: auto;
+    right: 20px;
+    bottom: max(18px, env(safe-area-inset-bottom));
   }
-
-  .story-deck__copy { margin-top: 72px; }
 
   .deck-actions button { height: 52px; }
   .deck-actions__previous { width: 52px; }
