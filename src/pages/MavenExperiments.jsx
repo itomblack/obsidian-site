@@ -77,9 +77,11 @@ function StoryDeck() {
       <DeckProgress active={active} total={mavenStory.length} onSelect={go} />
 
       <div className="story-deck__stage">
-        <figure className="story-deck__photo" key={`photo-${active}`}>
-          <img src={mavenImage} alt="Maven consumer-health product experience" />
-        </figure>
+        <div className="story-deck__media" key={`photo-${active}`}>
+          <figure className="story-deck__photo">
+            <img src={mavenImage} alt="Maven consumer-health product experience" />
+          </figure>
+        </div>
         <article className="story-deck__copy" key={`copy-${active}`}>
           <CardCopy card={card} />
         </article>

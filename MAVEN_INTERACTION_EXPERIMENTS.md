@@ -7,8 +7,9 @@ The prototype has been consolidated into one focused Story Deck. The previous in
 ## Final interaction model
 
 - A 24-beat click-through story with a single progress rail at the top.
-- One square, unmasked image per beat with no text overlay.
-- Editorial copy alongside the image on desktop and beneath it on mobile.
+- One three-column image per beat with a square left edge, rounded right end, subtle left fade and no text overlay.
+- Two-column editorial copy with a 28 px inset on desktop; the responsive flow preserves that inset beneath the image on mobile.
+- Faint page-wide rules align with the top and bottom of each image.
 - A circular Previous icon and a clear pill-shaped Next action fixed to the bottom-right.
 - The homepage ambient grid and responsive five-column / three-column alignment system.
 - A quieter enabled Previous state at 50% opacity, returning to full opacity on hover or focus.
