@@ -8,9 +8,11 @@
   - `/Users/itomblack/Desktop/Screenshot 2026-08-27 at 3.30.52 PM.png` — focused control placement target, 754 × 314 px (@2x).
   - `/Users/itomblack/Desktop/Screenshot 2026-08-27 at 3.31.39 PM.png` — focused rule-over-image target, 1134 × 96 px (@2x).
   - `/Users/itomblack/Desktop/Screenshot 2026-08-27 at 3.42.53 PM.png` — mobile reference state, 790 × 1588 px (@2x, representing 395 × 794 CSS px), supplemented by the explicit request to fix controls to the viewport bottom and remove the copy inset.
+  - `/Users/itomblack/Desktop/Screenshot 2026-08-27 at 3.49.39 PM.png` — explicit mobile CSS target showing `.story-deck { padding: 88px 0 106px; }`, 484 × 164 px.
 - Implementation route: `http://127.0.0.1:3001/maven-case-study-experiments`
 - Desktop implementation: `/private/tmp/maven-opacity-fade-desktop-pass2.jpg`, 1713 × 992 px at a 1713 × 992 CSS viewport, device scale factor 1.
 - Mobile implementation: `/private/tmp/maven-fixed-controls-mobile-target-state.jpg`, 395 × 794 px at a 395 × 794 CSS viewport, device scale factor 1.
+- Latest mobile padding implementation: `/private/tmp/maven-mobile-padding-88-pass1.jpg`, 390 × 844 px at a 390 × 844 CSS viewport, device scale factor 1.
 - State: desktop on the first story card; mobile on “Design the gaps.” to match the supplied reference content.
 
 ## Normalization and combined evidence
@@ -28,6 +30,7 @@
 - No actionable P0, P1 or P2 issues remain.
 - Desktop measurement: the image’s lower rule ends at 855.9 px and the controls begin at 875.9 px — an exact 20 px gap.
 - Mobile measurement: controls are fixed 18 px above the viewport bottom and 20 px from the right edge. Copy begins at x = 20 px, exactly matching the first content gridline, with no horizontal overflow.
+- Latest mobile computed style resolves to `padding: 88px 0 106px` exactly; the 390 px document width remains equal to its viewport.
 - Both horizontal rules have z-index 3, above the photo at z-index 1, so neither rule disappears where it crosses the image.
 - The requested `.story-deck` declarations resolve to `min-height: 100svh` and `padding: 112px 0 100px`.
 - Slide media and copy now share a 960 ms `ease-in-out` opacity animation. At 300 ms both measured 0.226 opacity and `transform: none`; after 960 ms both settle at full opacity without positional movement.
@@ -64,6 +67,7 @@
 - Mobile pass 1 — [P2] Controls were image-anchored between the media and copy, and the copy retained a 28 px inset from the first gridline.
 - Fix — At the mobile breakpoint, changed controls to `position: fixed` with an 18 px safe-area-aware bottom gap and 20 px right gap; removed the mobile copy margin.
 - Mobile pass 2 — Passed. At 395 × 794 the controls remain at the viewport bottom-right, copy and grid both begin at x = 20 px, and document width remains exactly 395 px.
+- Padding pass 1 — Passed. The requested 88 px mobile top padding is present in the first implementation, its computed shorthand matches the reference exactly, and the rendered 390 × 844 capture shows no overflow or adjacent layout regression.
 
 ## Follow-up polish
 
