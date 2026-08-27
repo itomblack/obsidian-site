@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import mavenImage from '../assets/photos/optimized/maven-2200.jpg';
+import AmbientGrid from '../components/obsidian/AmbientGrid';
 import { mavenStory } from '../data/mavenStory';
 import './MavenExperiments.scss';
 
@@ -115,6 +116,7 @@ function StoryDeck() {
 export default function MavenExperiments() {
   return (
     <main className="maven-experiments">
+      <AmbientGrid />
       <header className="experiment-header">
         <Link to="/">The Obsidian Lab</Link>
         <p>Maven case study</p>

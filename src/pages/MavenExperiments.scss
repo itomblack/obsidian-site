@@ -1,14 +1,25 @@
 .maven-experiments {
+  --grid-gutter: clamp(24px, 6.6667vw, 96px);
+  --grid-content: min(calc(100vw - (var(--grid-gutter) * 2)), 1248px);
+  --grid-column: calc(var(--grid-content) / 5);
+  --grid-edge: calc((100vw - var(--grid-content)) / 2);
   --maven-bg: #050706;
   --maven-paper: #e7e6df;
   --maven-sage: #9bb7ae;
   --maven-mint: #d7e5e0;
   --maven-line: rgba(255, 255, 255, 0.13);
+  position: relative;
   min-height: 100vh;
+  overflow-x: hidden;
   background:
     radial-gradient(55% 34% at 76% 13%, rgba(82, 118, 107, 0.13), transparent 74%),
     var(--maven-bg);
   color: var(--white);
+}
+
+.maven-experiments > .story-deck {
+  position: relative;
+  z-index: 2;
 }
 
 .experiment-header {
@@ -21,7 +32,7 @@
   height: 72px;
   align-items: center;
   justify-content: space-between;
-  padding: 0 clamp(20px, 4.45vw, 64px);
+  padding: 0 var(--grid-edge);
   border-bottom: 1px solid var(--maven-line);
   background: rgba(5, 7, 6, 0.86);
   backdrop-filter: blur(18px);
@@ -45,15 +56,15 @@
 
 .story-deck {
   min-height: 100svh;
-  padding: 105px clamp(20px, 4.45vw, 64px) 100px;
+  padding: 105px 0 100px;
 }
 
 .deck-progress {
   position: fixed;
   z-index: 45;
   top: 82px;
-  right: clamp(20px, 4.45vw, 64px);
-  left: clamp(20px, 4.45vw, 64px);
+  right: var(--grid-edge);
+  left: var(--grid-edge);
   display: grid;
   grid-template-columns: repeat(24, 1fr);
   gap: 5px;
@@ -80,16 +91,18 @@
 
 .story-deck__stage {
   display: grid;
+  width: var(--grid-content);
   min-height: calc(100svh - 205px);
-  grid-template-columns: minmax(360px, 520px) minmax(420px, 620px);
-  justify-content: center;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   align-items: center;
-  gap: clamp(48px, 7vw, 112px);
+  margin: 0 auto;
 }
 
 .story-deck__photo {
-  width: 100%;
+  width: calc(100% - clamp(32px, 3.333vw, 48px));
   aspect-ratio: 1;
+  grid-column: 1 / span 2;
+  justify-self: start;
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--maven-line);
@@ -105,7 +118,10 @@
   object-position: center;
 }
 
-.story-deck__copy { animation: deck-copy-in 500ms var(--ease-premium); }
+.story-deck__copy {
+  grid-column: 3 / span 3;
+  animation: deck-copy-in 500ms var(--ease-premium);
+}
 
 .maven-copy {
   display: grid;
@@ -159,7 +175,7 @@
 .deck-actions {
   position: fixed;
   z-index: 48;
-  right: clamp(20px, 4.45vw, 64px);
+  right: var(--grid-edge);
   bottom: 30px;
   display: flex;
   align-items: center;
@@ -174,7 +190,7 @@
   font-size: 0.68rem;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  transition: background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms var(--ease-premium);
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease, opacity 200ms ease, transform 200ms var(--ease-premium);
 }
 
 .deck-actions button:hover { transform: scale(1.02); }
@@ -192,10 +208,15 @@
   backdrop-filter: blur(16px);
 }
 
+.deck-actions__previous:not(:disabled) { opacity: 0.5; }
+
 .deck-actions__previous:hover:not(:disabled) {
   border-color: rgba(255, 255, 255, 0.5);
   background: rgba(255, 255, 255, 0.08);
+  opacity: 1;
 }
+
+.deck-actions__previous:focus-visible { opacity: 1; }
 
 .deck-actions__previous-icon {
   display: grid;
@@ -245,18 +266,18 @@
   to { opacity: 1; transform: none; }
 }
 
-@media (max-width: 950px) {
-  .story-deck__stage {
-    grid-template-columns: minmax(300px, 0.92fr) minmax(360px, 1.08fr);
-    gap: 40px;
-  }
-}
-
 @media (max-width: 767px) {
+  .maven-experiments {
+    --grid-gutter: 20px;
+    --grid-content: calc(100vw - 40px);
+    --grid-column: calc(var(--grid-content) / 3);
+    --grid-edge: 20px;
+  }
+
   .experiment-header { height: 58px; padding: 0 20px; }
   .experiment-header p { display: none; }
 
-  .story-deck { padding: 83px 20px 106px; }
+  .story-deck { padding: 83px 0 106px; }
 
   .deck-progress {
     top: 65px;
@@ -268,14 +289,19 @@
   .deck-progress button { height: 14px; padding: 6px 0; }
 
   .story-deck__stage {
-    display: flex;
     min-height: 0;
-    flex-direction: column;
-    gap: 28px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 28px;
     align-items: stretch;
   }
 
-  .story-deck__photo { border-radius: 4px; }
+  .story-deck__photo {
+    width: 100%;
+    grid-column: 1 / -1;
+    border-radius: 4px;
+  }
+
+  .story-deck__copy { grid-column: 1 / -1; }
   .maven-copy { max-width: none; gap: 18px; }
   .maven-copy h1 { font-size: clamp(2.55rem, 11.2vw, 4.1rem); }
   .maven-copy__body p { font-size: 0.97rem; line-height: 1.5; }

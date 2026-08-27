@@ -10,6 +10,8 @@ The prototype has been consolidated into one focused Story Deck. The previous in
 - One square, unmasked image per beat with no text overlay.
 - Editorial copy alongside the image on desktop and beneath it on mobile.
 - A circular Previous icon and a clear pill-shaped Next action fixed to the bottom-right.
+- The homepage ambient grid and responsive five-column / three-column alignment system.
+- A quieter enabled Previous state at 50% opacity, returning to full opacity on hover or focus.
 - Pointer, keyboard arrow, spacebar and mobile swipe navigation.
 - Eyebrow copy identifies the story section without repeating the slide number.
 

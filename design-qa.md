@@ -1,47 +1,54 @@
-# Maven Story Deck button — design QA
+# Maven Story Deck grid and mobile controls — design QA
 
 ## Comparison target
 
-- Source visual truth: `/Users/itomblack/Desktop/Screenshot 2026-08-27 at 2.50.21 PM.png`
-- Source pixels: 382 × 162 px.
-- Implementation screenshot: `/private/tmp/maven-button-mobile.jpg`
-- Implementation pixels and CSS viewport: 390 × 844 px at device scale factor 1.
+- Grid source visual truth:
+  - `/private/tmp/homepage-grid-desktop.jpg` — 1375 × 998 px, 1375 × 998 CSS viewport, device scale factor 1.
+  - `/private/tmp/homepage-grid-mobile.jpg` — 390 × 844 px, 390 × 844 CSS viewport, device scale factor 1.
+- Control source visual truth: `/Users/itomblack/Desktop/Screenshot 2026-08-27 at 3.07.29 PM.png` — 512 × 178 px, an @2x mobile control crop.
+- Implementation evidence:
+  - `/private/tmp/maven-grid-desktop.jpg` — 1375 × 998 px, 1375 × 998 CSS viewport, device scale factor 1.
+  - `/private/tmp/maven-grid-mobile-pass1.jpg` — 390 × 844 px, 390 × 844 CSS viewport, device scale factor 1, first story card.
+  - `/private/tmp/maven-grid-mobile-active.jpg` — 390 × 844 px, 390 × 844 CSS viewport, device scale factor 1, second story card with Previous enabled.
 - Route: `http://127.0.0.1:3001/maven-case-study-experiments`
-- State: first story card, mobile viewport, default button state.
-- Density normalization: no density conversion required. The implementation button was cropped at its native 150 × 52 px size and centered on a 382 × 162 px panel so the component style could be judged without page-position noise.
 
-## Comparison evidence
+## Normalization and combined evidence
 
-- Focused side-by-side comparison: `/private/tmp/maven-button-comparison.png`
-- The reference is a component-only crop, so a separate full-page source comparison is not applicable. The live full-page implementation was inspected at desktop and 390 × 844 mobile widths to verify placement and surrounding layout.
-
-## Required fidelity surfaces
-
-- Fonts and typography: Passed. The implementation preserves the reference’s compact mono label, uppercase treatment and wide tracking, scaled to the existing story controls.
-- Spacing and layout rhythm: Passed. The pill keeps the reference’s approximately 3:1 proportion, generous left inset, circular right end-cap and vertically centered content.
-- Colors and visual tokens: Passed. Near-black fill, subtle gray outline, softened white label and slightly lighter circular end-cap match the reference while reusing the Maven dark palette.
-- Image quality and asset fidelity: Passed. The directional arrow uses the installed Lucide icon library; no approximate text glyph, inline SVG or raster placeholder is used.
-- Copy and content: Passed with an intentional product adaptation. `NEXT` and a right arrow replace `EXIT PHONE` and the close icon because this control advances the story.
+- Mobile full-view comparison: `/private/tmp/maven-grid-comparison-mobile.png`. Homepage and case-study captures remain at native 390 × 844 size and are placed side by side.
+- Desktop full-view comparison: `/private/tmp/maven-grid-comparison-desktop.png`. Both 1375 × 998 captures were proportionally reduced to 688 × 499 before being placed side by side.
+- Focused control comparison: `/private/tmp/maven-controls-grid-comparison.png`. The 212 × 52 CSS-pixel implementation group was scaled to its @2x 424 × 104 equivalent and centered beside the 512 × 178 source crop.
+- The focused implementation capture includes the browser’s visible focus treatment on Next after advancing. This is an expected interaction-state difference, not a base-style mismatch.
 
 ## Findings
 
-- No actionable P0, P1 or P2 mismatches.
-- The implementation is proportionally smaller than the isolated reference because it sits beside the Previous control in a responsive case-study interface. The shape, internal proportion and visual treatment remain faithful.
+- No actionable P0, P1 or P2 issues remain.
+- The mobile screenshot’s apparent control size was partly a density effect: the attached crop is @2x. At the verified 390 px CSS viewport, the group occupies 212 px and stays inside the 20 px page edges without overflow.
+- The enabled Previous button resolves to `opacity: 0.5`; its hover and focus-visible states return it to full opacity. The first-card disabled state remains intentionally quieter at `0.28`.
+
+## Required fidelity surfaces
+
+- Fonts and typography: Passed. Instrument Serif, Fragment Mono and Inter retain the homepage hierarchy, weights, tracking and wrapping across the deck.
+- Spacing and layout rhythm: Passed. The case study now reuses the homepage’s five-column desktop grid and three-column mobile grid. Header, progress rail, image, copy and navigation share the same outer edges. The desktop image occupies the first two columns with a controlled inset before copy begins on column three.
+- Colors and visual tokens: Passed. The imported ambient grid uses the homepage’s original line opacity and animated light treatment; the enabled Previous opacity is intentionally reduced without changing the underlying button palette.
+- Image quality and asset fidelity: Passed. The existing square Maven image remains sharp and correctly cropped. Lucide supplies the navigation icons; no approximation assets were introduced.
+- Copy and content: Passed. Story content and labels are unchanged.
 
 ## Interaction and responsive checks
 
-- Next advances to the following story card.
-- Hover, focus, active and disabled styles remain defined.
-- The control stays within the bottom-right safe area at 390 × 844 and does not create horizontal overflow.
-- Desktop placement remains bottom-right without obscuring story content.
+- Next advances to card two and enables Previous.
+- Previous is 50% opacity when enabled and returns to full opacity on hover or keyboard focus through defined interaction rules.
+- Measured mobile values: 390 px viewport, 390 px document width, 350 px grid content width, no horizontal overflow.
+- Desktop controls align to the homepage grid’s right edge without obscuring story content.
 - Production build compiled successfully.
 
 ## Comparison history
 
-- Pass 1: passed. No P0/P1/P2 fixes were required after the first combined comparison.
+- Pass 1 — [P2] The case-study layout used independent gutters and did not expose the homepage grid, so its content edges could not be checked against the site-wide structure. The enabled Previous control also had equal prominence to Next.
+- Fix — Reused the homepage `AmbientGrid`, copied its responsive grid variables, aligned every persistent and content region to `--grid-edge` / `--grid-content`, and added the 0.5 enabled opacity treatment.
+- Pass 2 — Passed. Combined desktop, mobile and focused-control comparisons show aligned tracks, contained controls and the requested hierarchy.
 
 ## Follow-up polish
 
-- P3: If the navigation should feel more dominant later, increase both action controls together rather than enlarging only Next and breaking the pair’s balance.
+- P3: Once the final evidence images are available, consider aligning subjects within each square to the nearest vertical grid line, not just aligning the image frame itself.
 
 final result: passed
