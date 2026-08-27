@@ -62,13 +62,26 @@
 
 .phone-mode {
   position: fixed;
-  z-index: 1000;
+  z-index: 2147483000;
   inset: 0;
   overflow: hidden;
+  backface-visibility: hidden;
   background: #060807;
   color: #fff;
+  contain: strict;
   isolation: isolate;
+  transform: translate3d(0, 0, 0);
   animation: phone-mode-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+body.is-phone-mode {
+  overscroll-behavior: none;
+}
+
+body.is-phone-mode .obsidian-site,
+body.is-phone-mode .design-system {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .phone-mode::before,
