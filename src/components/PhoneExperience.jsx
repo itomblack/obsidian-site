@@ -396,7 +396,13 @@ export default function PhoneExperience() {
           <div className="phone-mode__atmosphere" aria-hidden="true" />
 
           <header className="phone-mode__bar">
-            <p><span>Obsidian Lab</span> · mobile site</p>
+            <img
+              className="phone-mode__logo"
+              src="/obsidian-script.png"
+              alt="Obsidian"
+              width="124"
+              height="38"
+            />
             <button ref={closeRef} type="button" onClick={closePhone}>
               <span>Exit phone</span>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>

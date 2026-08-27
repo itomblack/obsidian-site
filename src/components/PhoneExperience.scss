@@ -132,6 +132,12 @@
 
 .phone-mode__bar p span { color: rgba(255, 255, 255, 0.82); }
 
+.phone-mode__logo {
+  width: 124px;
+  height: auto;
+  opacity: 0.88;
+}
+
 .phone-mode__bar button {
   display: inline-flex;
   align-items: center;
