@@ -56,7 +56,7 @@
 
 .story-deck {
   min-height: 100svh;
-  padding: 105px 0 100px;
+  padding: 112px 0 100px;
 }
 
 .deck-progress {
@@ -90,6 +90,7 @@
 .deck-progress button:focus-visible { outline: 1px solid var(--maven-sage); outline-offset: 2px; }
 
 .story-deck__stage {
+  position: relative;
   display: grid;
   width: var(--grid-content);
   min-height: calc(100svh - 205px);
@@ -109,7 +110,7 @@
 .story-deck__media::before,
 .story-deck__media::after {
   position: absolute;
-  z-index: 0;
+  z-index: 3;
   left: calc(var(--grid-edge) * -1);
   width: 100vw;
   height: 1px;
@@ -207,10 +208,10 @@
 }
 
 .deck-actions {
-  position: fixed;
-  z-index: 48;
-  right: var(--grid-edge);
-  bottom: 30px;
+  position: absolute;
+  z-index: 4;
+  top: calc(50% + (var(--grid-column) * 1.5) + 20px);
+  right: 0;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -344,9 +345,11 @@
   .maven-copy__body p { font-size: 0.97rem; line-height: 1.5; }
 
   .deck-actions {
-    right: 20px;
-    bottom: max(18px, env(safe-area-inset-bottom));
+    top: calc(var(--grid-content) + 20px);
+    right: 0;
   }
+
+  .story-deck__copy { margin-top: 72px; }
 
   .deck-actions button { height: 52px; }
   .deck-actions__previous { width: 52px; }

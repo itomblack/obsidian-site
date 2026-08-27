@@ -85,32 +85,31 @@ function StoryDeck() {
         <article className="story-deck__copy" key={`copy-${active}`}>
           <CardCopy card={card} />
         </article>
+        <nav className="deck-actions" aria-label="Story navigation">
+          <button
+            className="deck-actions__previous"
+            type="button"
+            onClick={() => go(active - 1)}
+            disabled={active === 0}
+            aria-label="Previous story card"
+          >
+            <span className="deck-actions__previous-icon" aria-hidden="true">
+              <ArrowLeft size={17} strokeWidth={1.8} />
+            </span>
+          </button>
+          <button
+            className="deck-actions__next"
+            type="button"
+            onClick={() => go(active + 1)}
+            disabled={isLast}
+          >
+            <span>{isLast ? 'End' : 'Next'}</span>
+            <span className="deck-actions__next-icon" aria-hidden="true">
+              <ArrowRight size={17} strokeWidth={1.8} />
+            </span>
+          </button>
+        </nav>
       </div>
-
-      <nav className="deck-actions" aria-label="Story navigation">
-        <button
-          className="deck-actions__previous"
-          type="button"
-          onClick={() => go(active - 1)}
-          disabled={active === 0}
-          aria-label="Previous story card"
-        >
-          <span className="deck-actions__previous-icon" aria-hidden="true">
-            <ArrowLeft size={17} strokeWidth={1.8} />
-          </span>
-        </button>
-        <button
-          className="deck-actions__next"
-          type="button"
-          onClick={() => go(active + 1)}
-          disabled={isLast}
-        >
-          <span>{isLast ? 'End' : 'Next'}</span>
-          <span className="deck-actions__next-icon" aria-hidden="true">
-            <ArrowRight size={17} strokeWidth={1.8} />
-          </span>
-        </button>
-      </nav>
     </section>
   );
 }
