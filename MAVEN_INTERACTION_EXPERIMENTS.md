@@ -14,6 +14,7 @@ The prototype has been consolidated into one focused Story Deck. The previous in
 - The homepage ambient grid and responsive five-column / three-column alignment system.
 - A quieter enabled Previous state at 50% opacity, returning to full opacity on hover or focus.
 - Pointer, keyboard arrow, spacebar and mobile swipe navigation.
+- A soft 960 ms opacity fade between story beats, with no directional movement or scale.
 - Eyebrow copy identifies the story section without repeating the slide number.
 
 This keeps the speed and social familiarity of the original Story Deck while removing the experimental navigation chrome. It is designed for a fast 60–90 second read without losing the full medium-length story.
