@@ -44,22 +44,6 @@ function tuneMaterial(material) {
   return material;
 }
 
-function makeRoundedScreen(width, height, radius) {
-  const shape = new THREE.Shape();
-  const x = -width / 2;
-  const y = -height / 2;
-  shape.moveTo(x + radius, y);
-  shape.lineTo(x + width - radius, y);
-  shape.quadraticCurveTo(x + width, y, x + width, y + radius);
-  shape.lineTo(x + width, y + height - radius);
-  shape.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-  shape.lineTo(x + radius, y + height);
-  shape.quadraticCurveTo(x, y + height, x, y + height - radius);
-  shape.lineTo(x, y + radius);
-  shape.quadraticCurveTo(x, y, x + radius, y);
-  return new THREE.ShapeGeometry(shape, 18);
-}
-
 function matrixForQuad(width, height, [topLeft, topRight, bottomRight, bottomLeft]) {
   const dx1 = topRight.x - bottomRight.x;
   const dx2 = bottomLeft.x - bottomRight.x;
@@ -139,25 +123,11 @@ function PhoneHardware({ onReady, onError, screenRef }) {
     const rig = new THREE.Group();
     scene.add(rig);
 
-    // The source model includes a warm display beneath its glass. This black
-    // well travels with the hardware and prevents that artwork from peeking
-    // around the live browser surface at any viewing angle.
-    const displayWellGeometry = makeRoundedScreen(0.0698, 0.147, 0.0105);
-    const displayWellMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0x010202,
-      metalness: 0.02,
-      roughness: 0.2,
-      clearcoat: 0.85,
-      clearcoatRoughness: 0.08,
-      side: THREE.DoubleSide,
-    });
-    const displayWell = new THREE.Mesh(displayWellGeometry, displayWellMaterial);
-    displayWell.position.z = -0.00665;
-    displayWell.renderOrder = 3;
-    rig.add(displayWell);
-
-    const screenWidth = 0.0674;
-    const screenHeight = 0.1436;
+    // The projected DOM surface includes one clean black bezel around the
+    // live website. Keeping it out of WebGL avoids stacking another 3D edge
+    // on top of the bezel already present in the source model.
+    const screenWidth = 0.0698;
+    const screenHeight = 0.147;
     const screenDepth = -0.00682;
     const screenCorners = [
       new THREE.Vector3(screenWidth / 2, screenHeight / 2, screenDepth),
@@ -182,16 +152,21 @@ function PhoneHardware({ onReady, onError, screenRef }) {
       rig.updateMatrixWorld(true);
       const width = stage.clientWidth;
       const height = stage.clientHeight;
+      const device = stage.parentElement;
+      const deviceWidth = device?.clientWidth || width;
+      const deviceHeight = device?.clientHeight || height;
+      const stageOffsetX = stage.offsetLeft;
+      const stageOffsetY = stage.offsetTop;
       const quad = screenCorners.map((corner) => {
         projectedCorner.copy(corner).applyMatrix4(rig.matrixWorld).project(camera);
         return {
-          x: (projectedCorner.x * 0.5 + 0.5) * width,
-          y: (-projectedCorner.y * 0.5 + 0.5) * height,
+          x: ((projectedCorner.x * 0.5 + 0.5) * width) + stageOffsetX,
+          y: ((-projectedCorner.y * 0.5 + 0.5) * height) + stageOffsetY,
         };
       });
 
-      const baseWidth = width * 0.845;
-      const baseHeight = height * 0.9;
+      const baseWidth = deviceWidth * 0.875;
+      const baseHeight = deviceHeight * 0.922;
       const facing = Math.cos(rotationX) * Math.cos(rotationY);
       screenElement.style.width = `${baseWidth}px`;
       screenElement.style.height = `${baseHeight}px`;
@@ -286,9 +261,13 @@ function PhoneHardware({ onReady, onError, screenRef }) {
     const resize = () => {
       const width = stage.clientWidth;
       const height = stage.clientHeight;
+      const deviceHeight = stage.parentElement?.clientHeight || height;
       renderer.setSize(width, height, false);
+      camera.position.z = -0.288 * (height / Math.max(deviceHeight, 1));
+      camera.lookAt(0, 0, 0);
       camera.aspect = width / Math.max(height, 1);
       camera.updateProjectionMatrix();
+      camera.updateMatrixWorld(true);
       projectScreen();
       renderer.render(scene, camera);
     };
@@ -324,8 +303,6 @@ function PhoneHardware({ onReady, onError, screenRef }) {
           materials.forEach((material) => material?.dispose());
         });
       }
-      displayWellGeometry.dispose();
-      displayWellMaterial.dispose();
       environment.dispose();
       renderer.dispose();
     };

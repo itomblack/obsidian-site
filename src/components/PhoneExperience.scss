@@ -203,6 +203,9 @@
 }
 
 .phone-mode__hardware {
+  inset: -16% -38%;
+  width: auto;
+  height: auto;
   cursor: grab;
   touch-action: none;
 }
@@ -226,22 +229,26 @@
   z-index: 2;
   top: 0;
   left: 0;
-  width: 84.5%;
-  height: 90%;
+  width: 87.5%;
+  height: 92.2%;
   overflow: hidden;
-  border-radius: 12.8% / 6%;
-  background: #050505;
-  box-shadow: 0 0 0 2px #050606, inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  border-radius: 12.4% / 5.9%;
+  background: #020303;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.055);
   transform-origin: 0 0;
   transition: opacity 160ms ease;
   will-change: transform;
 }
 
 .phone-mode__screen iframe {
+  position: absolute;
+  top: 1.25%;
+  left: 2.3%;
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 95.4%;
+  height: 97.5%;
   border: 0;
+  border-radius: 11.5% / 5.7%;
   background: #000;
 }
 
