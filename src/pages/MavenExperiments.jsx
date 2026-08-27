@@ -92,7 +92,9 @@ function StoryDeck() {
           disabled={active === 0}
           aria-label="Previous story card"
         >
-          <ArrowLeft size={18} strokeWidth={1.8} aria-hidden="true" />
+          <span className="deck-actions__previous-icon" aria-hidden="true">
+            <ArrowLeft size={17} strokeWidth={1.8} />
+          </span>
         </button>
         <button
           className="deck-actions__next"
