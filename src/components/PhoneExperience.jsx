@@ -44,9 +44,64 @@ function tuneMaterial(material) {
   return material;
 }
 
-function PhoneHardware({ onReady, onError }) {
+function makeRoundedScreen(width, height, radius) {
+  const shape = new THREE.Shape();
+  const x = -width / 2;
+  const y = -height / 2;
+  shape.moveTo(x + radius, y);
+  shape.lineTo(x + width - radius, y);
+  shape.quadraticCurveTo(x + width, y, x + width, y + radius);
+  shape.lineTo(x + width, y + height - radius);
+  shape.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+  shape.lineTo(x + radius, y + height);
+  shape.quadraticCurveTo(x, y + height, x, y + height - radius);
+  shape.lineTo(x, y + radius);
+  shape.quadraticCurveTo(x, y, x + radius, y);
+  return new THREE.ShapeGeometry(shape, 18);
+}
+
+function matrixForQuad(width, height, [topLeft, topRight, bottomRight, bottomLeft]) {
+  const dx1 = topRight.x - bottomRight.x;
+  const dx2 = bottomLeft.x - bottomRight.x;
+  const dx3 = topLeft.x - topRight.x + bottomRight.x - bottomLeft.x;
+  const dy1 = topRight.y - bottomRight.y;
+  const dy2 = bottomLeft.y - bottomRight.y;
+  const dy3 = topLeft.y - topRight.y + bottomRight.y - bottomLeft.y;
+  const determinant = (dx1 * dy2) - (dx2 * dy1);
+
+  let projectX = 0;
+  let projectY = 0;
+  if (Math.abs(determinant) > 0.00001) {
+    projectX = ((dx3 * dy2) - (dx2 * dy3)) / determinant;
+    projectY = ((dx1 * dy3) - (dx3 * dy1)) / determinant;
+  }
+
+  const scaleX = topRight.x - topLeft.x + (projectX * topRight.x);
+  const skewX = bottomLeft.x - topLeft.x + (projectY * bottomLeft.x);
+  const scaleY = topRight.y - topLeft.y + (projectX * topRight.y);
+  const skewY = bottomLeft.y - topLeft.y + (projectY * bottomLeft.y);
+
+  const h11 = scaleX / width;
+  const h12 = skewX / height;
+  const h13 = topLeft.x;
+  const h21 = scaleY / width;
+  const h22 = skewY / height;
+  const h23 = topLeft.y;
+  const h31 = projectX / width;
+  const h32 = projectY / height;
+
+  return `matrix3d(${[
+    h11, h21, 0, h31,
+    h12, h22, 0, h32,
+    0, 0, 1, 0,
+    h13, h23, 0, 1,
+  ].join(',')})`;
+}
+
+function PhoneHardware({ onReady, onError, screenRef }) {
   const canvasRef = useRef(null);
   const stageRef = useRef(null);
+  const orbitSurfaceRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -84,6 +139,121 @@ function PhoneHardware({ onReady, onError }) {
     const rig = new THREE.Group();
     scene.add(rig);
 
+    // The source model includes a warm display beneath its glass. This black
+    // well travels with the hardware and prevents that artwork from peeking
+    // around the live browser surface at any viewing angle.
+    const displayWellGeometry = makeRoundedScreen(0.0698, 0.147, 0.0105);
+    const displayWellMaterial = new THREE.MeshPhysicalMaterial({
+      color: 0x010202,
+      metalness: 0.02,
+      roughness: 0.2,
+      clearcoat: 0.85,
+      clearcoatRoughness: 0.08,
+      side: THREE.DoubleSide,
+    });
+    const displayWell = new THREE.Mesh(displayWellGeometry, displayWellMaterial);
+    displayWell.position.z = -0.00665;
+    displayWell.renderOrder = 3;
+    rig.add(displayWell);
+
+    const screenWidth = 0.0692;
+    const screenHeight = 0.1455;
+    const screenDepth = -0.00682;
+    const screenCorners = [
+      new THREE.Vector3(screenWidth / 2, screenHeight / 2, screenDepth),
+      new THREE.Vector3(-screenWidth / 2, screenHeight / 2, screenDepth),
+      new THREE.Vector3(-screenWidth / 2, -screenHeight / 2, screenDepth),
+      new THREE.Vector3(screenWidth / 2, -screenHeight / 2, screenDepth),
+    ];
+    const projectedCorner = new THREE.Vector3();
+
+    let rotationX = 0;
+    let rotationY = 0;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let dragRotationX = 0;
+    let dragRotationY = 0;
+    let dragging = false;
+
+    const projectScreen = () => {
+      const screenElement = screenRef.current;
+      if (!screenElement) return;
+
+      rig.updateMatrixWorld(true);
+      const width = stage.clientWidth;
+      const height = stage.clientHeight;
+      const quad = screenCorners.map((corner) => {
+        projectedCorner.copy(corner).applyMatrix4(rig.matrixWorld).project(camera);
+        return {
+          x: (projectedCorner.x * 0.5 + 0.5) * width,
+          y: (-projectedCorner.y * 0.5 + 0.5) * height,
+        };
+      });
+
+      const baseWidth = width * 0.868;
+      const baseHeight = height * 0.912;
+      const facing = Math.cos(rotationX) * Math.cos(rotationY);
+      screenElement.style.width = `${baseWidth}px`;
+      screenElement.style.height = `${baseHeight}px`;
+      screenElement.style.transform = matrixForQuad(baseWidth, baseHeight, quad);
+      screenElement.style.opacity = facing > 0.07 ? '1' : '0';
+      screenElement.style.pointerEvents = facing > 0.2 ? 'auto' : 'none';
+    };
+
+    const setDragging = (active) => {
+      dragging = active;
+      stage.classList.toggle('is-dragging', active);
+      orbitSurfaceRef.current?.classList.toggle('is-dragging', active);
+    };
+
+    const onPointerDown = (event) => {
+      if (event.button !== 0) return;
+      event.preventDefault();
+      dragStartX = event.clientX;
+      dragStartY = event.clientY;
+      dragRotationX = rotationX;
+      dragRotationY = rotationY;
+      setDragging(true);
+      event.currentTarget.setPointerCapture(event.pointerId);
+    };
+
+    const onPointerMove = (event) => {
+      if (!dragging) return;
+      event.preventDefault();
+      rotationY = dragRotationY - ((event.clientX - dragStartX) * 0.009);
+      rotationX = THREE.MathUtils.clamp(
+        dragRotationX - ((event.clientY - dragStartY) * 0.006),
+        -0.62,
+        0.62,
+      );
+      rig.rotation.set(rotationX, rotationY, 0);
+      projectScreen();
+    };
+
+    const onPointerUp = (event) => {
+      if (!dragging) return;
+      setDragging(false);
+      if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+        event.currentTarget.releasePointerCapture(event.pointerId);
+      }
+    };
+
+    const resetRotation = () => {
+      rotationX = 0;
+      rotationY = 0;
+      rig.rotation.set(0, 0, 0);
+      projectScreen();
+    };
+
+    const dragTargets = [stage, orbitSurfaceRef.current].filter(Boolean);
+    dragTargets.forEach((target) => {
+      target.addEventListener('pointerdown', onPointerDown);
+      target.addEventListener('pointermove', onPointerMove);
+      target.addEventListener('pointerup', onPointerUp);
+      target.addEventListener('pointercancel', onPointerUp);
+      target.addEventListener('dblclick', resetRotation);
+    });
+
     const loader = new GLTFLoader();
     let model;
     let disposed = false;
@@ -119,6 +289,7 @@ function PhoneHardware({ onReady, onError }) {
       renderer.setSize(width, height, false);
       camera.aspect = width / Math.max(height, 1);
       camera.updateProjectionMatrix();
+      projectScreen();
       renderer.render(scene, camera);
     };
 
@@ -128,6 +299,7 @@ function PhoneHardware({ onReady, onError }) {
 
     let frame = 0;
     const render = () => {
+      projectScreen();
       renderer.render(scene, camera);
       frame = window.requestAnimationFrame(render);
     };
@@ -137,6 +309,13 @@ function PhoneHardware({ onReady, onError }) {
       disposed = true;
       window.cancelAnimationFrame(frame);
       resizeObserver.disconnect();
+      dragTargets.forEach((target) => {
+        target.removeEventListener('pointerdown', onPointerDown);
+        target.removeEventListener('pointermove', onPointerMove);
+        target.removeEventListener('pointerup', onPointerUp);
+        target.removeEventListener('pointercancel', onPointerUp);
+        target.removeEventListener('dblclick', resetRotation);
+      });
       if (model) {
         model.traverse((object) => {
           if (!(object instanceof THREE.Mesh)) return;
@@ -145,15 +324,20 @@ function PhoneHardware({ onReady, onError }) {
           materials.forEach((material) => material?.dispose());
         });
       }
+      displayWellGeometry.dispose();
+      displayWellMaterial.dispose();
       environment.dispose();
       renderer.dispose();
     };
-  }, [onError, onReady]);
+  }, [onError, onReady, screenRef]);
 
   return (
-    <div ref={stageRef} className="phone-mode__hardware" aria-hidden="true">
-      <canvas ref={canvasRef} />
-    </div>
+    <>
+      <div ref={orbitSurfaceRef} className="phone-mode__orbit-surface" aria-hidden="true" />
+      <div ref={stageRef} className="phone-mode__hardware" aria-hidden="true">
+        <canvas ref={canvasRef} />
+      </div>
+    </>
   );
 }
 
@@ -170,6 +354,7 @@ export default function PhoneExperience() {
   const location = useLocation();
   const triggerRef = useRef(null);
   const closeRef = useRef(null);
+  const screenRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [frameUrl, setFrameUrl] = useState('');
   const [modelStatus, setModelStatus] = useState('loading');
@@ -247,9 +432,10 @@ export default function PhoneExperience() {
               <PhoneHardware
                 onReady={handleModelReady}
                 onError={handleModelError}
+                screenRef={screenRef}
               />
 
-              <div className="phone-mode__screen">
+              <div ref={screenRef} className="phone-mode__screen">
                 <iframe
                   src={frameUrl}
                   title="Obsidian Lab mobile website"
@@ -270,7 +456,7 @@ export default function PhoneExperience() {
             )}
           </div>
 
-          <p className="phone-mode__hint">Scroll, tap and follow links inside the phone</p>
+          <p className="phone-mode__hint">Drag around the phone to rotate · scroll and tap inside</p>
         </section>
       )}
     </>

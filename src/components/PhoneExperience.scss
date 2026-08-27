@@ -3,13 +3,14 @@
   z-index: 40;
   right: 24px;
   bottom: 24px;
-  display: grid;
+  display: flex;
   width: 54px;
   height: 54px;
-  place-items: center;
+  align-items: center;
+  justify-content: flex-end;
   padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
+  border-radius: 999px;
   background: rgba(11, 13, 13, 0.72);
   box-shadow: 0 16px 50px rgba(0, 0, 0, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.82);
@@ -19,6 +20,8 @@
 }
 
 .phone-mode-trigger svg {
+  position: absolute;
+  right: 15px;
   width: 23px;
   fill: none;
   stroke: currentColor;
@@ -29,9 +32,9 @@
 
 .phone-mode-trigger span {
   position: absolute;
-  right: 48px;
+  left: 18px;
   overflow: hidden;
-  width: 0;
+  width: 92px;
   color: currentColor;
   font-family: var(--font-label);
   font-size: 0.65rem;
@@ -39,7 +42,8 @@
   opacity: 0;
   text-transform: uppercase;
   white-space: nowrap;
-  transition: width 350ms cubic-bezier(0.16, 1, 0.3, 1), opacity 180ms ease;
+  transform: translateX(8px);
+  transition: opacity 180ms ease, transform 350ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .phone-mode-trigger:hover,
@@ -52,8 +56,8 @@
 
 .phone-mode-trigger:hover span,
 .phone-mode-trigger:focus-visible span {
-  width: 94px;
   opacity: 1;
+  transform: translateX(0);
 }
 
 .phone-mode {
@@ -188,42 +192,49 @@
   transform: translateY(0) scale(1);
 }
 
-.phone-mode__device::after {
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  width: 89.4%;
-  height: 91.5%;
-  border-radius: 12.5% / 5.9%;
-  background: #020303;
-  content: '';
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-}
-
 .phone-mode__hardware,
 .phone-mode__hardware canvas {
   position: absolute;
+  z-index: 1;
   inset: 0;
   display: block;
   width: 100%;
   height: 100%;
-  pointer-events: none;
+}
+
+.phone-mode__hardware {
+  cursor: grab;
+  touch-action: none;
+}
+
+.phone-mode__hardware.is-dragging,
+.phone-mode__orbit-surface.is-dragging { cursor: grabbing; }
+
+.phone-mode__hardware canvas { pointer-events: none; }
+
+.phone-mode__orbit-surface {
+  position: absolute;
+  z-index: 0;
+  inset: -54px -80px;
+  border-radius: 45%;
+  cursor: grab;
+  touch-action: none;
 }
 
 .phone-mode__screen {
   position: absolute;
   z-index: 2;
-  top: 50%;
-  left: 50%;
+  top: 0;
+  left: 0;
   width: 86.8%;
-  height: 88.9%;
+  height: 91.2%;
   overflow: hidden;
   border-radius: 12.1% / 5.7%;
   background: #050505;
   box-shadow: 0 0 0 2px #050606, inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-  transform: translate(-50%, -50%);
+  transform-origin: 0 0;
+  transition: opacity 160ms ease;
+  will-change: transform;
 }
 
 .phone-mode__screen iframe {
