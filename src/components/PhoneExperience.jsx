@@ -13,8 +13,26 @@ const silverMaterials = new Set([
   'JKTmNomFyvfvVAj',
 ]);
 
+const modelScreenMaterial = 'BsXHDwLKqtDOfrW';
+
 function tuneMaterial(material) {
   if (!(material instanceof THREE.MeshStandardMaterial)) return material;
+
+  // The source model includes a bright wallpaper beneath the projected live
+  // website. Make that backing surface black so fast rotations never reveal a
+  // flash of colour while the DOM projection catches up with the WebGL model.
+  if (material.name === modelScreenMaterial) {
+    material.map = null;
+    material.emissiveMap = null;
+    material.color.set(0x000000);
+    material.emissive.set(0x000000);
+    material.emissiveIntensity = 0;
+    material.metalness = 0;
+    material.roughness = 0.5;
+    material.envMapIntensity = 0.15;
+    material.needsUpdate = true;
+    return material;
+  }
 
   if (silverMaterials.has(material.name)) {
     material.color.set(0xd9d8d3);
