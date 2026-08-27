@@ -197,7 +197,7 @@ function PhoneHardware({ onReady, onError, screenRef }) {
       event.preventDefault();
       rotationY = dragRotationY + ((event.clientX - dragStartX) * 0.009);
       rotationX = THREE.MathUtils.clamp(
-        dragRotationX + ((event.clientY - dragStartY) * 0.006),
+        dragRotationX - ((event.clientY - dragStartY) * 0.006),
         -0.62,
         0.62,
       );
