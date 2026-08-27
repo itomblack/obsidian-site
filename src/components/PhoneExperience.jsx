@@ -126,8 +126,8 @@ function PhoneHardware({ onReady, onError, screenRef }) {
     // The projected DOM surface includes one clean black bezel around the
     // live website. Keeping it out of WebGL avoids stacking another 3D edge
     // on top of the bezel already present in the source model.
-    const screenWidth = 0.0698;
-    const screenHeight = 0.147;
+    const screenWidth = 0.0672;
+    const screenHeight = 0.1447;
     const screenDepth = -0.00682;
     const screenCorners = [
       new THREE.Vector3(screenWidth / 2, screenHeight / 2, screenDepth),
@@ -165,8 +165,8 @@ function PhoneHardware({ onReady, onError, screenRef }) {
         };
       });
 
-      const baseWidth = deviceWidth * 0.875;
-      const baseHeight = deviceHeight * 0.922;
+      const baseWidth = deviceWidth * 0.843;
+      const baseHeight = deviceHeight * 0.907;
       const facing = Math.cos(rotationX) * Math.cos(rotationY);
       screenElement.style.width = `${baseWidth}px`;
       screenElement.style.height = `${baseHeight}px`;
