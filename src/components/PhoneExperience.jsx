@@ -156,8 +156,8 @@ function PhoneHardware({ onReady, onError, screenRef }) {
     displayWell.renderOrder = 3;
     rig.add(displayWell);
 
-    const screenWidth = 0.0692;
-    const screenHeight = 0.1455;
+    const screenWidth = 0.0674;
+    const screenHeight = 0.1436;
     const screenDepth = -0.00682;
     const screenCorners = [
       new THREE.Vector3(screenWidth / 2, screenHeight / 2, screenDepth),
@@ -190,8 +190,8 @@ function PhoneHardware({ onReady, onError, screenRef }) {
         };
       });
 
-      const baseWidth = width * 0.868;
-      const baseHeight = height * 0.912;
+      const baseWidth = width * 0.845;
+      const baseHeight = height * 0.9;
       const facing = Math.cos(rotationX) * Math.cos(rotationY);
       screenElement.style.width = `${baseWidth}px`;
       screenElement.style.height = `${baseHeight}px`;
@@ -220,9 +220,9 @@ function PhoneHardware({ onReady, onError, screenRef }) {
     const onPointerMove = (event) => {
       if (!dragging) return;
       event.preventDefault();
-      rotationY = dragRotationY - ((event.clientX - dragStartX) * 0.009);
+      rotationY = dragRotationY + ((event.clientX - dragStartX) * 0.009);
       rotationX = THREE.MathUtils.clamp(
-        dragRotationX - ((event.clientY - dragStartY) * 0.006),
+        dragRotationX + ((event.clientY - dragStartY) * 0.006),
         -0.62,
         0.62,
       );
