@@ -1,39 +1,47 @@
-# Maven Story Deck — design QA
+# Maven Story Deck button — design QA
 
-## Verification target
+## Comparison target
 
+- Source visual truth: `/Users/itomblack/Desktop/Screenshot 2026-08-27 at 2.50.21 PM.png`
+- Source pixels: 382 × 162 px.
+- Implementation screenshot: `/private/tmp/maven-button-mobile.jpg`
+- Implementation pixels and CSS viewport: 390 × 844 px at device scale factor 1.
 - Route: `http://127.0.0.1:3001/maven-case-study-experiments`
-- Desktop viewport: 1375 × 998
-- Mobile viewport: 390 × 844
-- Story states checked: cards 01 and 02
+- State: first story card, mobile viewport, default button state.
+- Density normalization: no density conversion required. The implementation button was cropped at its native 150 × 52 px size and centered on a 382 × 162 px panel so the component style could be judged without page-position noise.
 
-## Result
+## Comparison evidence
 
-final result: passed
+- Focused side-by-side comparison: `/private/tmp/maven-button-comparison.png`
+- The reference is a component-only crop, so a separate full-page source comparison is not applicable. The live full-page implementation was inspected at desktop and 390 × 844 mobile widths to verify placement and surrounding layout.
 
-## Visual checks
+## Required fidelity surfaces
 
-- Only the focused Story Deck is visible; variant and style selectors are removed.
-- The 24-part progress rail appears once, directly beneath the site header.
-- The image remains square on desktop and mobile, with no arch mask or copy overlay.
-- Eyebrow text contains the section label only, with no repeated card number.
-- Previous is a circular icon button and Next is a high-contrast rounded pill; both remain fixed at the bottom-right.
-- Desktop copy and image remain unobscured by the navigation controls.
-- Mobile content has no horizontal overflow and reserves enough bottom space for the fixed actions.
+- Fonts and typography: Passed. The implementation preserves the reference’s compact mono label, uppercase treatment and wide tracking, scaled to the existing story controls.
+- Spacing and layout rhythm: Passed. The pill keeps the reference’s approximately 3:1 proportion, generous left inset, circular right end-cap and vertically centered content.
+- Colors and visual tokens: Passed. Near-black fill, subtle gray outline, softened white label and slightly lighter circular end-cap match the reference while reusing the Maven dark palette.
+- Image quality and asset fidelity: Passed. The directional arrow uses the installed Lucide icon library; no approximate text glyph, inline SVG or raster placeholder is used.
+- Copy and content: Passed with an intentional product adaptation. `NEXT` and a right arrow replace `EXIT PHONE` and the close icon because this control advances the story.
 
-## Interaction checks
+## Findings
 
-- Next advances the story and updates the progress rail.
-- Previous is disabled on the first card and enabled after advancing.
-- Progress segments remain direct navigation targets.
-- Keyboard arrows, spacebar and touch swipe support remain in the implementation.
-- Focus states are visible on both controls.
+- No actionable P0, P1 or P2 mismatches.
+- The implementation is proportionally smaller than the isolated reference because it sits beside the Previous control in a responsive case-study interface. The shape, internal proportion and visual treatment remain faithful.
 
-## Build
+## Interaction and responsive checks
 
+- Next advances to the following story card.
+- Hover, focus, active and disabled styles remain defined.
+- The control stays within the bottom-right safe area at 390 × 844 and does not create horizontal overflow.
+- Desktop placement remains bottom-right without obscuring story content.
 - Production build compiled successfully.
-- Existing Browserslist age notice remains non-blocking.
+
+## Comparison history
+
+- Pass 1: passed. No P0/P1/P2 fixes were required after the first combined comparison.
 
 ## Follow-up polish
 
-- Replace the repeated Maven hero photograph with a specific square evidence asset for each story beat when the final image set is ready.
+- P3: If the navigation should feel more dominant later, increase both action controls together rather than enlarging only Next and breaking the pair’s balance.
+
+final result: passed

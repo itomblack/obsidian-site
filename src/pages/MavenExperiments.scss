@@ -203,17 +203,32 @@
 }
 
 .deck-actions__next {
-  min-width: 146px;
-  padding: 0 24px;
-  border-color: var(--maven-paper) !important;
+  display: flex;
+  min-width: 166px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 6px 7px 6px 24px;
+  border-color: rgba(255, 255, 255, 0.2) !important;
   border-radius: 999px;
-  background: var(--maven-paper);
-  color: #0a0c0b;
+  background: #151817;
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .deck-actions__next:hover:not(:disabled) {
-  border-color: var(--white) !important;
-  background: var(--white);
+  border-color: rgba(255, 255, 255, 0.42) !important;
+  background: #1b1e1d;
+  color: var(--white);
+}
+
+.deck-actions__next-icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 @keyframes deck-photo-in {
@@ -268,7 +283,8 @@
 
   .deck-actions button { height: 52px; }
   .deck-actions__previous { width: 52px; }
-  .deck-actions__next { min-width: 128px; padding: 0 20px; }
+  .deck-actions__next { min-width: 150px; padding: 5px 6px 5px 21px; }
+  .deck-actions__next-icon { width: 40px; height: 40px; flex-basis: 40px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

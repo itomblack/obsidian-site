@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import mavenImage from '../assets/photos/optimized/maven-2200.jpg';
 import { mavenStory } from '../data/mavenStory';
@@ -100,7 +100,10 @@ function StoryDeck() {
           onClick={() => go(active + 1)}
           disabled={isLast}
         >
-          {isLast ? 'End of story' : 'Next'}
+          <span>{isLast ? 'End' : 'Next'}</span>
+          <span className="deck-actions__next-icon" aria-hidden="true">
+            <ArrowRight size={17} strokeWidth={1.8} />
+          </span>
         </button>
       </nav>
     </section>
