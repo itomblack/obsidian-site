@@ -55,3 +55,15 @@ The strongest final system is probably a hybrid rather than one untouched varian
 The Guided scroll is the most visually dramatic pure direction, but it has the highest risk of making a 24-beat story feel long. The deck is the strongest mobile default. The documentary model best supports the consulting proposition: Ian’s value was not simply producing screens, but making consequential decisions legible.
 
 The prototypes currently use the existing Maven project image as a deliberate stand-in. Interaction decisions should be made before investing in the full evidence asset set.
+
+## Story Deck style studies
+
+The Story Deck now includes a second comparison layer controlled by the `style` query parameter:
+
+- `footer` — full-width bottom action bar with a dominant Next action.
+- `edges` — tall Previous and Next controls at the stage edges.
+- `dock` — compact navigation dock beneath the story copy.
+- `folio` — editorial composition with copy first, image second and oversized pagination.
+- `rail` — dedicated chapter and navigation rail at the right edge.
+
+All five use a square image with no copy overlay or shaped mask. At mobile width they converge into the same reliable reading pattern: square image, story copy and a sticky three-part Previous / position / Next control.

@@ -7,6 +7,14 @@ import './MavenExperiments.scss';
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
+const deckStyles = [
+  { id: 'footer', number: '01', label: 'Footer bar' },
+  { id: 'edges', number: '02', label: 'Edge controls' },
+  { id: 'dock', number: '03', label: 'Compact dock' },
+  { id: 'folio', number: '04', label: 'Editorial folio' },
+  { id: 'rail', number: '05', label: 'Control rail' },
+];
+
 function CardCopy({ card, index, compact = false }) {
   return (
     <div className={`maven-copy${compact ? ' maven-copy--compact' : ''}`}>
@@ -140,21 +148,112 @@ function DeckProgress({ active, total, onSelect }) {
   );
 }
 
+function DeckStyleNav({ active, onChange }) {
+  return (
+    <nav className="deck-style-nav" aria-label="Story Deck style experiments">
+      <p>Deck styles</p>
+      <div>
+        {deckStyles.map((style) => (
+          <button
+            key={style.id}
+            type="button"
+            className={style.id === active ? 'is-active' : ''}
+            onClick={() => onChange(style.id)}
+            aria-pressed={style.id === active}
+          >
+            <span>{style.number}</span>
+            <strong>{style.label}</strong>
+          </button>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
+function DeckPhoto() {
+  return (
+    <figure className="deck-photo">
+      <img src={mavenImage} alt="Maven consumer-health product experience" />
+    </figure>
+  );
+}
+
+function DeckControls({ active, go, style }) {
+  const nextCard = mavenStory[active + 1];
+  const currentChapter = mavenChapters.findIndex((chapter) => (
+    active >= chapter.range[0] && active <= chapter.range[1]
+  ));
+
+  return (
+    <div className={`deck-navigation deck-navigation--${style}`}>
+      {style === 'rail' && (
+        <div className="deck-navigation__chapters" aria-label="Story chapters">
+          <p>Story chapters</p>
+          {mavenChapters.map((chapter, index) => (
+            <button
+              key={chapter.id}
+              type="button"
+              className={index === currentChapter ? 'is-active' : ''}
+              onClick={() => go(chapter.range[0])}
+            >
+              <span>{chapter.number}</span>
+              <strong>{chapter.label}</strong>
+            </button>
+          ))}
+        </div>
+      )}
+      <button
+        className="deck-navigation__previous"
+        type="button"
+        onClick={() => go(active - 1)}
+        disabled={active === 0}
+      >
+        <span>Previous</span>
+        {style === 'folio' && <strong>Previous story</strong>}
+      </button>
+      <div className="deck-navigation__status">
+        <strong>{String(active + 1).padStart(2, '0')}</strong>
+        <span>of {mavenStory.length}</span>
+        <div aria-hidden="true">
+          {mavenChapters.map((chapter, index) => (
+            <i key={chapter.id} className={index <= currentChapter ? 'is-complete' : ''} />
+          ))}
+        </div>
+      </div>
+      <button
+        className="deck-navigation__next"
+        type="button"
+        onClick={() => go(active + 1)}
+        disabled={!nextCard}
+      >
+        <span>{nextCard ? 'Next' : 'End of story'}</span>
+        {nextCard && <strong>{nextCard.title}</strong>}
+      </button>
+    </div>
+  );
+}
+
 function StoryDeck() {
   const { active, go, swipe } = useDeckControls();
   const card = mavenStory[active];
+  const styleParam = new URLSearchParams(window.location.search).get('style');
+  const [style, setStyle] = useState(deckStyles.some((item) => item.id === styleParam) ? styleParam : 'footer');
+
+  const changeStyle = (nextStyle) => {
+    setStyle(nextStyle);
+    const url = new URL(window.location.href);
+    url.searchParams.set('style', nextStyle);
+    window.history.replaceState({}, '', url);
+  };
 
   return (
-    <section className="story-deck" aria-label="Tap-through story deck experiment" {...swipe}>
+    <section className={`story-deck story-deck--${style}`} aria-label="Tap-through story deck experiment" {...swipe}>
+      <DeckStyleNav active={style} onChange={changeStyle} />
       <DeckProgress active={active} total={mavenStory.length} onSelect={go} />
       <div className="story-deck__stage">
-        <div className="story-deck__signal" key={`signal-${active}`}><StorySignal card={card} index={active} /></div>
+        <div className="story-deck__photo" key={`photo-${active}`}><DeckPhoto /></div>
         <article className="story-deck__copy" key={`copy-${active}`}><CardCopy card={card} index={active} /></article>
-      </div>
-      <div className="story-deck__controls">
-        <button type="button" onClick={() => go(active - 1)} disabled={active === 0}>Previous</button>
-        <p>{active + 1} of {mavenStory.length}</p>
-        <button type="button" onClick={() => go(active + 1)} disabled={active === mavenStory.length - 1}>Next</button>
+        <DeckControls active={active} go={go} style={style} />
       </div>
     </section>
   );
