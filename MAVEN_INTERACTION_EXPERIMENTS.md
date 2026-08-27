@@ -1,69 +1,18 @@
-# Maven case-study interaction experiments
+# Maven case-study interaction prototype
 
 Route: `/maven-case-study-experiments`
 
-The four prototypes deliberately use the same 24-beat story. Their differences are pacing, orientation and how much control the reader receives.
+The prototype has been consolidated into one focused Story Deck. The previous interaction variants and five style-study selectors have been removed from the interface.
 
-## 01 — Guided scroll
+## Final interaction model
 
-**Hypothesis:** A continuous scroll with a persistent visual stage can feel cinematic without asking the reader to learn a new interaction.
+- A 24-beat click-through story with a single progress rail at the top.
+- One square, unmasked image per beat with no text overlay.
+- Editorial copy alongside the image on desktop and beneath it on mobile.
+- A circular Previous icon and a clear pill-shaped Next action fixed to the bottom-right.
+- Pointer, keyboard arrow, spacebar and mobile swipe navigation.
+- Eyebrow copy identifies the story section without repeating the slide number.
 
-**Strongest for:** Desktop storytelling, emotional pacing, showing a visual transformation over time.
+This keeps the speed and social familiarity of the original Story Deck while removing the experimental navigation chrome. It is designed for a fast 60–90 second read without losing the full medium-length story.
 
-**Risk:** Twenty-four full-height beats can feel longer than the copy actually is. The final version should vary the rhythm with short beats, paired beats and occasional evidence clusters.
-
-**Mobile behaviour:** The persistent split collapses into full-screen visual-and-copy scenes. This is easier to understand but less differentiated from a conventional editorial page.
-
-## 02 — Story deck
-
-**Hypothesis:** Explicit next/previous controls, progress segments, keyboard navigation and mobile swiping create the snappiest version of the story.
-
-**Strongest for:** The 60–90 second reader, proposal links, social familiarity and mobile.
-
-**Risk:** Tap-through stories can make substantial consulting work feel lighter than it is. It also hides the total amount of proof until a reader advances.
-
-**Mobile behaviour:** Strongest of the four. The reader sees one complete beat, always knows their position and can swipe or tap through quickly.
-
-## 03 — Documentary split
-
-**Hypothesis:** Keeping evidence visible while the argument scrolls makes the work feel rigorous, calm and credible.
-
-**Strongest for:** Founders, product leaders and enterprise teams who want to understand how the decisions were made.
-
-**Risk:** This direction needs the richest final asset set. Repeating one hero image would weaken it; the evidence frame should rotate through maps, wireframes, pilot findings, launch screens and metrics.
-
-**Mobile behaviour:** The evidence frame stays pinned above the transcript. This preserves the relationship between proof and argument without forcing a desktop split into a narrow screen.
-
-## 04 — Director’s cut
-
-**Hypothesis:** Six named chapters let serious readers control depth while preserving a authored sequence within each chapter.
-
-**Strongest for:** Sales follow-ups, due diligence and readers returning to a specific part of the engagement.
-
-**Risk:** Chapter navigation reveals the structure early but reduces suspense. It feels more like an interactive report than a single dramatic story.
-
-**Mobile behaviour:** Chapters become a horizontal rail and each chapter becomes a small swipeable deck.
-
-## Recommendation after prototyping
-
-The strongest final system is probably a hybrid rather than one untouched variant:
-
-1. Open with the **Story deck** for the first four beats, where speed and drama matter.
-2. Transition into the **Documentary split** for the build, pilot and post-launch evidence.
-3. Keep the **Director’s cut** chapter rail as an optional navigation layer for returning and high-intent readers.
-
-The Guided scroll is the most visually dramatic pure direction, but it has the highest risk of making a 24-beat story feel long. The deck is the strongest mobile default. The documentary model best supports the consulting proposition: Ian’s value was not simply producing screens, but making consequential decisions legible.
-
-The prototypes currently use the existing Maven project image as a deliberate stand-in. Interaction decisions should be made before investing in the full evidence asset set.
-
-## Story Deck style studies
-
-The Story Deck now includes a second comparison layer controlled by the `style` query parameter:
-
-- `footer` — full-width bottom action bar with a dominant Next action.
-- `edges` — tall Previous and Next controls at the stage edges.
-- `dock` — compact navigation dock beneath the story copy.
-- `folio` — editorial composition with copy first, image second and oversized pagination.
-- `rail` — dedicated chapter and navigation rail at the right edge.
-
-All five use a square image with no copy overlay or shaped mask. At mobile width they converge into the same reliable reading pattern: square image, story copy and a sticky three-part Previous / position / Next control.
+The prototype still uses the existing Maven project photograph as a stand-in. The final case study should assign a relevant square evidence image to each story beat.

@@ -1,25 +1,17 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import mavenImage from '../assets/photos/optimized/maven-2200.jpg';
-import MavenLogo from '../assets/brand-logos-v2/Maven.svg';
-import { mavenChapters, mavenStory, storyVariants } from '../data/mavenStory';
+import { mavenStory } from '../data/mavenStory';
 import './MavenExperiments.scss';
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
-const deckStyles = [
-  { id: 'footer', number: '01', label: 'Footer bar' },
-  { id: 'edges', number: '02', label: 'Edge controls' },
-  { id: 'dock', number: '03', label: 'Compact dock' },
-  { id: 'folio', number: '04', label: 'Editorial folio' },
-  { id: 'rail', number: '05', label: 'Control rail' },
-];
-
-function CardCopy({ card, index, compact = false }) {
+function CardCopy({ card }) {
   return (
-    <div className={`maven-copy${compact ? ' maven-copy--compact' : ''}`}>
-      <p className="maven-copy__kicker">{String(index + 1).padStart(2, '0')} / 24 · {card.kicker}</p>
-      <h2>{card.title}</h2>
+    <div className="maven-copy">
+      <p className="maven-copy__kicker">{card.kicker}</p>
+      <h1>{card.title}</h1>
       <div className="maven-copy__body">
         {card.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
       </div>
@@ -28,83 +20,8 @@ function CardCopy({ card, index, compact = false }) {
   );
 }
 
-function StorySignal({ card, index, mode = 'full' }) {
-  const showImage = ['hero', 'launch', 'quote'].includes(card.kind);
-  return (
-    <div className={`story-signal story-signal--${card.kind} story-signal--${mode}`}>
-      {showImage && <img src={mavenImage} alt="Maven consumer-health product experience" />}
-      <div className="story-signal__veil" />
-      <div className="story-signal__meta">
-        <img src={MavenLogo} alt="Maven" />
-        <span>{String(index + 1).padStart(2, '0')}</span>
-      </div>
-      <p className="story-signal__text">{card.signal}</p>
-    </div>
-  );
-}
-
-function VariantNav({ active, onChange }) {
-  return (
-    <nav className="variant-nav" aria-label="Case study interaction experiments">
-      {storyVariants.map((variant) => (
-        <button
-          key={variant.id}
-          type="button"
-          className={active === variant.id ? 'is-active' : ''}
-          onClick={() => onChange(variant.id)}
-          aria-pressed={active === variant.id}
-        >
-          <span>{variant.number}</span>
-          <strong>{variant.label}</strong>
-          <small>{variant.note}</small>
-        </button>
-      ))}
-    </nav>
-  );
-}
-
-function GuidedScroll() {
+function useDeckControls(max = mavenStory.length - 1) {
   const [active, setActive] = useState(0);
-  const refs = useRef([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries.filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible) setActive(Number(visible.target.dataset.storyIndex));
-    }, { threshold: [0.36, 0.6, 0.8] });
-
-    refs.current.forEach((node) => node && observer.observe(node));
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <section className="guided-story" aria-label="Guided scroll experiment">
-      <div className="guided-story__progress" aria-hidden="true">
-        <span style={{ transform: `scaleX(${(active + 1) / mavenStory.length})` }} />
-      </div>
-      <aside className="guided-story__canvas">
-        <StorySignal card={mavenStory[active]} index={active} />
-      </aside>
-      <div className="guided-story__pages">
-        {mavenStory.map((card, index) => (
-          <article
-            className={`guided-page${index === active ? ' is-active' : ''}`}
-            data-story-index={index}
-            key={card.title}
-            ref={(node) => { refs.current[index] = node; }}
-          >
-            <div className="guided-page__mobile-signal"><StorySignal card={card} index={index} mode="mobile" /></div>
-            <CardCopy card={card} index={index} />
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function useDeckControls(initial = 0, max = mavenStory.length - 1) {
-  const [active, setActive] = useState(initial);
   const touchStart = useRef(null);
   const go = useCallback((next) => setActive((current) => (
     clamp(typeof next === 'function' ? next(current) : next, 0, max)
@@ -115,6 +32,7 @@ function useDeckControls(initial = 0, max = mavenStory.length - 1) {
       if (event.key === 'ArrowRight' || event.key === ' ') go((current) => current + 1);
       if (event.key === 'ArrowLeft') go((current) => current - 1);
     };
+
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [go]);
@@ -148,235 +66,55 @@ function DeckProgress({ active, total, onSelect }) {
   );
 }
 
-function DeckStyleNav({ active, onChange }) {
-  return (
-    <nav className="deck-style-nav" aria-label="Story Deck style experiments">
-      <p>Deck styles</p>
-      <div>
-        {deckStyles.map((style) => (
-          <button
-            key={style.id}
-            type="button"
-            className={style.id === active ? 'is-active' : ''}
-            onClick={() => onChange(style.id)}
-            aria-pressed={style.id === active}
-          >
-            <span>{style.number}</span>
-            <strong>{style.label}</strong>
-          </button>
-        ))}
-      </div>
-    </nav>
-  );
-}
-
-function DeckPhoto() {
-  return (
-    <figure className="deck-photo">
-      <img src={mavenImage} alt="Maven consumer-health product experience" />
-    </figure>
-  );
-}
-
-function DeckControls({ active, go, style }) {
-  const nextCard = mavenStory[active + 1];
-  const currentChapter = mavenChapters.findIndex((chapter) => (
-    active >= chapter.range[0] && active <= chapter.range[1]
-  ));
-
-  return (
-    <div className={`deck-navigation deck-navigation--${style}`}>
-      {style === 'rail' && (
-        <div className="deck-navigation__chapters" aria-label="Story chapters">
-          <p>Story chapters</p>
-          {mavenChapters.map((chapter, index) => (
-            <button
-              key={chapter.id}
-              type="button"
-              className={index === currentChapter ? 'is-active' : ''}
-              onClick={() => go(chapter.range[0])}
-            >
-              <span>{chapter.number}</span>
-              <strong>{chapter.label}</strong>
-            </button>
-          ))}
-        </div>
-      )}
-      <button
-        className="deck-navigation__previous"
-        type="button"
-        onClick={() => go(active - 1)}
-        disabled={active === 0}
-      >
-        <span>Previous</span>
-        {style === 'folio' && <strong>Previous story</strong>}
-      </button>
-      <div className="deck-navigation__status">
-        <strong>{String(active + 1).padStart(2, '0')}</strong>
-        <span>of {mavenStory.length}</span>
-        <div aria-hidden="true">
-          {mavenChapters.map((chapter, index) => (
-            <i key={chapter.id} className={index <= currentChapter ? 'is-complete' : ''} />
-          ))}
-        </div>
-      </div>
-      <button
-        className="deck-navigation__next"
-        type="button"
-        onClick={() => go(active + 1)}
-        disabled={!nextCard}
-      >
-        <span>{nextCard ? 'Next' : 'End of story'}</span>
-        {nextCard && <strong>{nextCard.title}</strong>}
-      </button>
-    </div>
-  );
-}
-
 function StoryDeck() {
   const { active, go, swipe } = useDeckControls();
   const card = mavenStory[active];
-  const styleParam = new URLSearchParams(window.location.search).get('style');
-  const [style, setStyle] = useState(deckStyles.some((item) => item.id === styleParam) ? styleParam : 'footer');
-
-  const changeStyle = (nextStyle) => {
-    setStyle(nextStyle);
-    const url = new URL(window.location.href);
-    url.searchParams.set('style', nextStyle);
-    window.history.replaceState({}, '', url);
-  };
+  const isLast = active === mavenStory.length - 1;
 
   return (
-    <section className={`story-deck story-deck--${style}`} aria-label="Tap-through story deck experiment" {...swipe}>
-      <DeckStyleNav active={style} onChange={changeStyle} />
+    <section className="story-deck" aria-label="Maven case study" {...swipe}>
       <DeckProgress active={active} total={mavenStory.length} onSelect={go} />
+
       <div className="story-deck__stage">
-        <div className="story-deck__photo" key={`photo-${active}`}><DeckPhoto /></div>
-        <article className="story-deck__copy" key={`copy-${active}`}><CardCopy card={card} index={active} /></article>
-        <DeckControls active={active} go={go} style={style} />
+        <figure className="story-deck__photo" key={`photo-${active}`}>
+          <img src={mavenImage} alt="Maven consumer-health product experience" />
+        </figure>
+        <article className="story-deck__copy" key={`copy-${active}`}>
+          <CardCopy card={card} />
+        </article>
       </div>
-    </section>
-  );
-}
 
-function DocumentarySplit() {
-  const [active, setActive] = useState(0);
-  const refs = useRef([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) setActive(Number(entry.target.dataset.storyIndex));
-      });
-    }, { rootMargin: '-38% 0px -48%', threshold: 0 });
-    refs.current.forEach((node) => node && observer.observe(node));
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <section className="documentary" aria-label="Documentary split-screen experiment">
-      <aside className="documentary__evidence">
-        <p className="documentary__label">Evidence frame · {String(active + 1).padStart(2, '0')}</p>
-        <StorySignal card={mavenStory[active]} index={active} />
-        <div className="documentary__chapter">
-          <span>Now reading</span>
-          <strong>{mavenChapters.find((chapter) => active >= chapter.range[0] && active <= chapter.range[1])?.label}</strong>
-        </div>
-      </aside>
-      <div className="documentary__transcript">
-        {mavenStory.map((card, index) => (
-          <article
-            key={card.title}
-            className={index === active ? 'is-active' : ''}
-            data-story-index={index}
-            ref={(node) => { refs.current[index] = node; }}
-          >
-            <CardCopy card={card} index={index} compact />
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function DirectorsCut() {
-  const [chapterIndex, setChapterIndex] = useState(0);
-  const chapter = mavenChapters[chapterIndex];
-  const cards = useMemo(() => mavenStory.slice(chapter.range[0], chapter.range[1] + 1), [chapter]);
-  const { active, go, swipe } = useDeckControls(0, cards.length - 1);
-
-  useEffect(() => { go(0); }, [chapterIndex, go]);
-
-  const globalIndex = chapter.range[0] + active;
-  const card = cards[active];
-
-  return (
-    <section className="directors-cut" aria-label="Chapter-led director’s cut experiment" {...swipe}>
-      <nav className="chapter-nav" aria-label="Story chapters">
-        {mavenChapters.map((item, index) => (
-          <button
-            type="button"
-            key={item.id}
-            className={index === chapterIndex ? 'is-active' : ''}
-            onClick={() => setChapterIndex(index)}
-            aria-pressed={index === chapterIndex}
-          >
-            <span>{item.number}</span>
-            <strong>{item.label}</strong>
-          </button>
-        ))}
+      <nav className="deck-actions" aria-label="Story navigation">
+        <button
+          className="deck-actions__previous"
+          type="button"
+          onClick={() => go(active - 1)}
+          disabled={active === 0}
+          aria-label="Previous story card"
+        >
+          <ArrowLeft size={18} strokeWidth={1.8} aria-hidden="true" />
+        </button>
+        <button
+          className="deck-actions__next"
+          type="button"
+          onClick={() => go(active + 1)}
+          disabled={isLast}
+        >
+          {isLast ? 'End of story' : 'Next'}
+        </button>
       </nav>
-      <div className="directors-cut__stage">
-        <div className="directors-cut__chapter-title">
-          <p>Chapter {chapter.number}</p>
-          <h2>{chapter.label}</h2>
-        </div>
-        <div className="directors-cut__signal" key={`chapter-signal-${globalIndex}`}><StorySignal card={card} index={globalIndex} /></div>
-        <article key={`chapter-copy-${globalIndex}`}><CardCopy card={card} index={globalIndex} compact /></article>
-      </div>
-      <div className="directors-cut__controls">
-        <button type="button" onClick={() => go(active - 1)} disabled={active === 0}>Previous beat</button>
-        <div>
-          {cards.map((item, index) => <span key={item.title} className={index === active ? 'is-active' : ''} />)}
-        </div>
-        <button type="button" onClick={() => go(active + 1)} disabled={active === cards.length - 1}>Next beat</button>
-      </div>
     </section>
   );
 }
-
-const experiments = {
-  guided: GuidedScroll,
-  deck: StoryDeck,
-  split: DocumentarySplit,
-  chapters: DirectorsCut,
-};
 
 export default function MavenExperiments() {
-  const params = new URLSearchParams(window.location.search);
-  const requested = params.get('variant');
-  const [variant, setVariant] = useState(experiments[requested] ? requested : 'guided');
-  const Experiment = experiments[variant];
-
-  const chooseVariant = (next) => {
-    setVariant(next);
-    const url = new URL(window.location.href);
-    url.searchParams.set('variant', next);
-    window.history.replaceState({}, '', url);
-    window.scrollTo({ top: 0, behavior: 'auto' });
-  };
-
   return (
-    <main className={`maven-experiments maven-experiments--${variant}`}>
+    <main className="maven-experiments">
       <header className="experiment-header">
         <Link to="/">The Obsidian Lab</Link>
-        <div>
-          <p>Maven case study</p>
-          <span>Interaction studies</span>
-        </div>
+        <p>Maven case study</p>
       </header>
-      <VariantNav active={variant} onChange={chooseVariant} />
-      <Experiment key={variant} />
+      <StoryDeck />
     </main>
   );
 }
