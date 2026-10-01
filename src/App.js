@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-route
 import Home from './pages/Home';
 import DesignSystem from './pages/DesignSystem';
 import MavenExperiments from './pages/MavenExperiments';
+import PhoneExperience from './components/PhoneExperience';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -18,6 +19,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <PhoneExperience />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/design-system" element={<DesignSystem />} />

@@ -5,7 +5,7 @@ import TestimonialCarousel from './components/obsidian/TestimonialCarousel';
 test('renders the selected work gallery', () => {
   render(<ProjectGallery />);
   expect(screen.getByRole('region', { name: /selected work/i })).toBeInTheDocument();
-  expect(screen.getByRole('img', { name: /maven clinic product experience/i })).toBeInTheDocument();
+  expect(screen.getByRole('img', { name: /maven clinic\.? product experience/i })).toBeInTheDocument();
 });
 
 test('keeps logo and arrow testimonial controls in sync', () => {
