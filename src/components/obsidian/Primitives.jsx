@@ -1,4 +1,5 @@
 import React from 'react';
+import { ArrowRight } from 'lucide-react';
 import mark from '../../assets/obsidian-2026/obsidian-mark.png';
 
 export function BrandMark({ size = 'medium', className = '' }) {
@@ -25,7 +26,7 @@ export function PillButton({ href, children, tone = 'dark', className = '', targ
       rel={target === '_blank' ? 'noreferrer' : undefined}
     >
       <span>{children}</span>
-      <span className="pill-button__arrow" aria-hidden="true">→</span>
+      <span className="pill-button__arrow" aria-hidden="true"><ArrowRight size={16} strokeWidth={1.5} focusable="false" /></span>
     </a>
   );
 }

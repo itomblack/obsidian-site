@@ -57,23 +57,23 @@ export default function DesignSystem() {
         <SectionLabel as="h2">02 / Typography</SectionLabel>
         <div className="ds-type-specimens">
           <article>
-            <p className="ds-meta">Hero / Instrument Serif / 64–112</p>
+            <p className="ds-meta">Hero / Canela / 64–112</p>
             <p className="type-display">Growth Design for <em>Consumer Brands.</em></p>
           </article>
           <article>
-            <p className="ds-meta">Title / Instrument Serif / 32–43</p>
+            <p className="ds-meta">Title / Canela / 32–43</p>
             <p className="type-title">Luxury aesthetics meet high-performance usability.</p>
           </article>
           <article>
-            <p className="ds-meta">Quote / Instrument Serif / 30–43</p>
+            <p className="ds-meta">Quote / GT Walsheim Light / 24–32</p>
             <p className="type-quote">“Simple, clean, user-centered experiences.”</p>
           </article>
           <article>
-            <p className="ds-meta">Label / Fragment Mono / 12</p>
+            <p className="ds-meta">Label / GT Walsheim Light / 12</p>
             <p className="type-label">The Obsidian Lab · Working everywhere</p>
           </article>
           <article>
-            <p className="ds-meta">Body / Inter Light / 16</p>
+            <p className="ds-meta">Body / GT Walsheim Light / 16</p>
             <p className="type-body">Clear, measured language supports the expressive serif and keeps product thinking legible.</p>
           </article>
         </div>

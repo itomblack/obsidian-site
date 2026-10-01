@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Hairstory from '../../assets/brand-logos-v2/Hairstory.svg';
 import Lululemon from '../../assets/brand-logos-v2/Lululemon-BW.svg';
 import Maven from '../../assets/brand-logos-v2/Maven.svg';
@@ -129,7 +130,9 @@ export default function TestimonialCarousel() {
     <section className="testimonials" id="reviews" aria-label="Client testimonials">
       <ClientLogoRail activeIndex={active} onSelect={setActive} />
       <div className="testimonial" aria-live="polite">
-        <button className="testimonial__arrow testimonial__arrow--prev" type="button" onClick={() => go(-1)} aria-label="Previous testimonial">←</button>
+        <button className="testimonial__arrow testimonial__arrow--prev" type="button" onClick={() => go(-1)} aria-label="Previous testimonial">
+          <ArrowLeft size={20} strokeWidth={1.5} aria-hidden="true" focusable="false" />
+        </button>
         <blockquote key={active} className="testimonial__content">
           <p className="type-quote">“{testimonial.quote}”</p>
           <footer>
@@ -137,7 +140,9 @@ export default function TestimonialCarousel() {
             <p className="type-label testimonial__role">{testimonial.role}</p>
           </footer>
         </blockquote>
-        <button className="testimonial__arrow testimonial__arrow--next" type="button" onClick={() => go(1)} aria-label="Next testimonial">→</button>
+        <button className="testimonial__arrow testimonial__arrow--next" type="button" onClick={() => go(1)} aria-label="Next testimonial">
+          <ArrowRight size={20} strokeWidth={1.5} aria-hidden="true" focusable="false" />
+        </button>
       </div>
     </section>
   );

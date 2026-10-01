@@ -2,19 +2,22 @@ import React, { useEffect, useRef, useState } from 'react';
 import maven640 from '../../assets/photos/optimized/maven-640.jpg';
 import maven960 from '../../assets/photos/optimized/maven-960.jpg';
 import maven1440 from '../../assets/photos/optimized/maven-1440.jpg';
-import maven2200 from '../../assets/photos/optimized/maven-2200.jpg';
+import maven2000 from '../../assets/photos/optimized/maven-2000.jpg';
 import counter640 from '../../assets/photos/optimized/counter-640.jpg';
 import counter960 from '../../assets/photos/optimized/counter-960.jpg';
 import counter1440 from '../../assets/photos/optimized/counter-1440.jpg';
 import counter2200 from '../../assets/photos/optimized/counter-2200.jpg';
+import counter2880 from '../../assets/photos/optimized/counter-2880.jpg';
 import ledger640 from '../../assets/photos/optimized/ledger-640.jpg';
 import ledger960 from '../../assets/photos/optimized/ledger-960.jpg';
 import ledger1440 from '../../assets/photos/optimized/ledger-1440.jpg';
 import ledger2200 from '../../assets/photos/optimized/ledger-2200.jpg';
+import ledger2880 from '../../assets/photos/optimized/ledger-2880.jpg';
 import lululemon640 from '../../assets/photos/optimized/lululemon-640.jpg';
 import lululemon960 from '../../assets/photos/optimized/lululemon-960.jpg';
 import lululemon1440 from '../../assets/photos/optimized/lululemon-1440.jpg';
 import lululemon2200 from '../../assets/photos/optimized/lululemon-2200.jpg';
+import lululemon2880 from '../../assets/photos/optimized/lululemon-2880.jpg';
 
 const projectImageSizes = '(max-width: 767px) 100vw, (max-width: 1199px) 94vw, 86vw';
 
@@ -24,28 +27,28 @@ export const projects = [
     category: 'Consumer launch',
     summary: "Zero-to-one launch of a new consumer business arm for this $1.7 billion-dollar women's health-tech brand.",
     image: maven960,
-    imageSrcSet: `${maven640} 640w, ${maven960} 960w, ${maven1440} 1440w, ${maven2200} 2200w`,
+    imageSrcSet: `${maven640} 640w, ${maven960} 960w, ${maven1440} 1440w, ${maven2000} 2000w`,
   },
   {
     name: 'Counter Beauty.',
     category: 'Commerce transformation',
     summary: 'Designed a best-in-class ecommerce experience, and affiliate sales dashboard for the relaunch of this pioneering American beauty brand.',
     image: counter960,
-    imageSrcSet: `${counter640} 640w, ${counter960} 960w, ${counter1440} 1440w, ${counter2200} 2200w`,
+    imageSrcSet: `${counter640} 640w, ${counter960} 960w, ${counter1440} 1440w, ${counter2200} 2200w, ${counter2880} 2880w`,
   },
   {
     name: 'Ledger.',
     category: 'Digital product',
     summary: 'A $12.7 million increase in forecasted annual revenue, plus a new major hardware product launch for this French Crypto Unicorn.',
     image: ledger960,
-    imageSrcSet: `${ledger640} 640w, ${ledger960} 960w, ${ledger1440} 1440w, ${ledger2200} 2200w`,
+    imageSrcSet: `${ledger640} 640w, ${ledger960} 960w, ${ledger1440} 1440w, ${ledger2200} 2200w, ${ledger2880} 2880w`,
   },
   {
     name: 'Lululemon.',
     category: 'Commerce evolution',
     summary: 'Grew online conversion rate by 83% for this billion-dollar athleisure brand across 12 international regions.',
     image: lululemon960,
-    imageSrcSet: `${lululemon640} 640w, ${lululemon960} 960w, ${lululemon1440} 1440w, ${lululemon2200} 2200w`,
+    imageSrcSet: `${lululemon640} 640w, ${lululemon960} 960w, ${lululemon1440} 1440w, ${lululemon2200} 2200w, ${lululemon2880} 2880w`,
   },
 ];
 

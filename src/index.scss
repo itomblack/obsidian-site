@@ -1,48 +1,34 @@
 @font-face {
-  font-family: 'Instrument Serif';
-  src: url('./assets/fonts/Obsidian2026/InstrumentSerif-Regular.ttf') format('truetype');
+  font-family: 'Canela';
+  src: url('./assets/fonts/Obsidian2026/Canela-Regular-Web.woff2') format('woff2');
   font-style: normal;
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Instrument Serif';
-  src: url('./assets/fonts/Obsidian2026/InstrumentSerif-Italic.ttf') format('truetype');
+  font-family: 'Canela';
+  src: url('./assets/fonts/Obsidian2026/Canela-RegularItalic-Web.woff2') format('woff2');
   font-style: italic;
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Fragment Mono';
-  src: url('./assets/fonts/Obsidian2026/FragmentMono-Regular.ttf') format('truetype');
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('./assets/fonts/Obsidian2026/Inter-Light.ttf') format('truetype');
+  font-family: 'GT Walsheim';
+  src: url('./assets/fonts/Obsidian2026/GT-Walsheim-Light.woff2') format('woff2'),
+    url('./assets/fonts/Obsidian2026/GT-Walsheim-Light.woff') format('woff');
   font-style: normal;
   font-weight: 300;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Inter';
-  src: url('./assets/fonts/Obsidian2026/Inter-Regular.ttf') format('truetype');
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('./assets/fonts/Obsidian2026/Inter-Medium.ttf') format('truetype');
-  font-style: normal;
-  font-weight: 500;
+  font-family: 'GT Walsheim';
+  src: url('./assets/fonts/Obsidian2026/GT-Walsheim-Light-Oblique.woff2') format('woff2'),
+    url('./assets/fonts/Obsidian2026/GT-Walsheim-Light-Oblique.woff') format('woff');
+  font-style: italic;
+  font-weight: 300;
   font-display: swap;
 }
 
@@ -56,9 +42,9 @@
   --sand: #c8b195;
   --line: rgba(255, 255, 255, 0.1);
   --muted: rgba(255, 255, 255, 0.62);
-  --font-display: 'Instrument Serif', Georgia, serif;
-  --font-label: 'Fragment Mono', 'Courier New', monospace;
-  --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Canela', Georgia, serif;
+  --font-label: var(--font-body);
+  --font-body: 'GT Walsheim', 'Helvetica Neue', Arial, sans-serif;
   --page-gutter: clamp(24px, 4vw, 64px);
   --content-max: 1120px;
   --ease-premium: cubic-bezier(0.2, 0.75, 0.25, 1);
@@ -110,8 +96,7 @@ img {
 }
 
 .type-display,
-.type-title,
-.type-quote {
+.type-title {
   margin: -0.06em -0.08em -0.16em;
   padding: 0.06em 0.08em 0.16em;
   overflow: visible;
@@ -130,15 +115,18 @@ img {
 }
 
 .type-quote {
-  font-size: clamp(2rem, 3.05vw, 2.7rem);
-  line-height: 1.42;
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(1.5rem, 2.22vw, 2rem);
+  font-weight: 300;
+  line-height: 1.58;
 }
 
 .type-label {
   margin: 0;
   font-family: var(--font-label);
   font-size: 0.75rem;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 1.3;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -166,7 +154,7 @@ img {
   }
 
   .type-quote {
-    font-size: 1.5rem;
+    font-size: 21px;
     line-height: 1.35;
   }
 

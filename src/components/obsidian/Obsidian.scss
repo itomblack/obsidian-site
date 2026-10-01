@@ -122,6 +122,7 @@
 }
 
 .home-nav span {
+  display: inline-flex;
   color: rgba(255, 255, 255, 0.38);
   transition: color 260ms ease, transform 360ms var(--ease-premium);
 }
@@ -388,7 +389,7 @@
   position: relative;
   z-index: 1;
   width: min(74%, 112px);
-  max-height: 34px;
+  max-height: 36px;
   object-fit: contain;
   transform: scale(0.86);
   transition: transform 420ms var(--ease-premium), filter 260ms ease;
@@ -526,7 +527,7 @@
   min-width: 0;
   max-width: 100%;
   padding-right: 0.16em;
-  font-size: clamp(2rem, 2.6vw, 2.5rem);
+  font-size: clamp(1.5rem, 2.6vw, 1.75rem);
   line-height: 1.08;
   overflow-wrap: normal;
   white-space: normal;
@@ -594,7 +595,7 @@
 
 .pill-button--dark { background: var(--ink); color: var(--stone); }
 .pill-button--light { background: var(--stone); color: var(--ink); }
-.pill-button__arrow { display: inline-block; transition: transform 360ms var(--ease-premium); }
+.pill-button__arrow { display: inline-flex; transition: transform 360ms var(--ease-premium); }
 
 .pill-button:hover,
 .pill-button:focus-visible {
@@ -821,18 +822,21 @@
   }
 
   .client-logo { padding: 8px 5px; }
-  .client-logo img { width: 84%; max-height: 21px; }
+  .client-logo img { width: 84%; max-height: 30px; }
   .client-logo--featured img { transform: scale(1); }
 
   .testimonial {
+    position: relative;
+    display: block;
     width: var(--grid-content);
-    grid-template-columns: 36px minmax(0, 1fr) 36px;
-    align-items: end;
     margin-top: 58px;
   }
 
-  .testimonial__content { gap: 28px; }
-  .testimonial__arrow { width: 36px; height: 36px; margin-bottom: 3px; }
+  .testimonial__content { gap: 24px; text-align: left; }
+  .testimonial__content footer { min-height: 36px; padding-right: 90px; }
+  .testimonial__arrow { position: absolute; bottom: 0; width: 36px; height: 36px; }
+  .testimonial__arrow--prev { right: 42px; }
+  .testimonial__arrow--next { right: 0; }
   .services { padding: 104px 0 136px; }
 
   .service-row {
@@ -843,7 +847,7 @@
   }
 
   .service-row__number { grid-column: 1; font-size: 1.55rem; }
-  .service-row__title { grid-column: 2; font-size: 2.1rem; }
+  .service-row__title { grid-column: 2; }
   .service-row__description { grid-column: 2; max-width: 31rem; margin-top: 18px; }
 
   .contact-arch {

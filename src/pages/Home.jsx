@@ -1,65 +1,41 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SectionLabel } from '../components/obsidian/Primitives';
 import AmbientGrid from '../components/obsidian/AmbientGrid';
-import ProjectGallery from '../components/obsidian/ProjectGallery';
+import HeroSlider from '../components/obsidian/HeroSlider';
 import TestimonialCarousel from '../components/obsidian/TestimonialCarousel';
 import ServicesList from '../components/obsidian/ServicesList';
 import ContactArch from '../components/obsidian/ContactArch';
 import '../components/obsidian/Obsidian.scss';
+import '../components/obsidian/HeroSlider.scss';
 
 export default function Home() {
-  const heroRef = useRef(null);
-
-  useEffect(() => {
-    const hero = heroRef.current;
-    if (!hero) return undefined;
-
-    let frame = null;
-
-    const updateHeroLight = () => {
-      frame = null;
-      const progress = Math.min(1, Math.max(0, window.scrollY / (hero.offsetHeight * 0.88)));
-      hero.style.setProperty('--hero-soft-light-x', `${76 - (progress * 42)}%`);
-    };
-
-    const onScroll = () => {
-      if (!frame) frame = window.requestAnimationFrame(updateHeroLight);
-    };
-
-    updateHeroLight();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, []);
-
   return (
-    <main className="obsidian-site">
+    <main className="obsidian-site obsidian-site--hero-slider">
       <a className="skip-link" href="#work">Skip to work</a>
       <AmbientGrid />
 
-      <header className="home-hero" ref={heroRef}>
+      <header className="home-hero">
         <nav className="home-nav" aria-label="Primary navigation">
-          <a href="#work">Work <span aria-hidden="true">→</span></a>
-          <a href="#reviews">Reviews <span aria-hidden="true">→</span></a>
-          <a href="#contact">Contact <span aria-hidden="true">→</span></a>
+          <a href="#work">Work <span aria-hidden="true"><ArrowRight size={14} strokeWidth={1.5} focusable="false" /></span></a>
+          <a href="#reviews">Reviews <span aria-hidden="true"><ArrowRight size={14} strokeWidth={1.5} focusable="false" /></span></a>
+          <a href="#contact">Contact <span aria-hidden="true"><ArrowRight size={14} strokeWidth={1.5} focusable="false" /></span></a>
         </nav>
         <div className="home-hero__content">
           <div className="home-hero__copy">
             <SectionLabel>The Obsidian Lab</SectionLabel>
             <h1 className="type-display home-hero__title">
-              Growth Design for <em>Consumer Brands.</em>
+              Growth Design for <span>Consumer Brands.</span>
             </h1>
           </div>
+          <p className="home-hero__description">
+            For brand-led, research-backed, data-driven design, that's built to convert customers and build your business.
+          </p>
         </div>
       </header>
 
-      <ProjectGallery id="work" />
+      <HeroSlider />
       <TestimonialCarousel />
       <ServicesList />
       <ContactArch />
